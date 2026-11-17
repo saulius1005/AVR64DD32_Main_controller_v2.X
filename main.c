@@ -1,0 +1,15 @@
+/*
+ * File:   main.c
+ * Author: Saulius
+ *
+ * Created on Antradienis, 2026, lapkritis 17, 22.47
+ */
+
+
+#include "settings.h"
+#include "MCU_Config.h"
+
+int main(void) {
+    while (1) {
+    }
+}
