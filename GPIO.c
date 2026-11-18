@@ -1,33 +1,36 @@
 #include "settings.h"
 
 void GPIO_init(){
-    
+    // Configure USART0 and USART1 pin routing
+    PORTMUX.USARTROUTEA = PORTMUX_USART0_ALT1_gc | PORTMUX_USART1_ALT2_gc; // Set USART0 to alternative pins set 1, USART1 to alternative pins set 2
+    PORTMUX.TWIROUTEA = PORTMUX_TWI0_DEFAULT_gc; // Set TWI0 to default pins
+	PORTMUX.TCAROUTEA = PORTMUX_TCA0_PORTD_gc;
+	PORTMUX.TCDROUTEA = PORTMUX_TCD0_ALT2_gc; ///< Select alternative WOC pin variant 2
 
-    PORTA.DIRSET = PIN2_bm | PIN3_bm | PIN4_bm | PIN7_bm; //out: RS485_TX_LED, RS485_RX_LED, RS485_TX, RS485_XDIR
-    
-    PORTA.DIRCLR = PIN5_bm; //in: RS485_RX
-    
+    // Configure Port A (PA) for RX LED, I2C SDA, SCL, USART0 TX, TX LED and XDIR
+    PORTA.DIRSET = PIN2_bm | PIN3_bm | PIN4_bm | PIN6_bm | PIN7_bm; // Set PA2, PA3, PA4, PA7 as output (RX LED, I2C SDA, SCL, USART0 TX, TX LED, XDIR)
+    PORTA.DIRCLR = PIN1_bm | PIN5_bm; // Set  PA1 as Joystick button,  PA5 as input (USART0 RX)
+	PORTA.PIN1CTRL = PORT_PULLUPEN_bm; // Enable pull-up for PA1 (Joystick button)
+    PORTA.PIN5CTRL = PORT_PULLUPEN_bm; // Enable pull-up for PA5 (USART0 RX)
 
-    PORTC.PIN1CTRL = PORT_ISC_INPUT_DISABLE_gc; //WSS AIN29
-    PORTC.PIN2CTRL = PORT_ISC_INPUT_DISABLE_gc; //WDS AIN30
-    PORTC.PIN3CTRL = PORT_ISC_INPUT_DISABLE_gc; //SLS AIN31
+    // Configure ADC pins for Joystick x and y axis
+    PORTC.PIN1CTRL &= ~PORT_ISC_gm; // Disable interrupt sense for PC1 (X axis)
+    PORTC.PIN1CTRL |= PORT_ISC_INPUT_DISABLE_gc; // Disable input sense for PC1
+    PORTC.PIN1CTRL &= ~PORT_PULLUPEN_bm; // Disable pull-up for PC1
 
+    PORTC.PIN2CTRL &= ~PORT_ISC_gm; // Disable interrupt sense for PC2 (Y axis)
+    PORTC.PIN2CTRL |= PORT_ISC_INPUT_DISABLE_gc; // Disable input sense for PC2
+    PORTC.PIN2CTRL &= ~PORT_PULLUPEN_bm; // Disable pull-up for PC2
 
-    PORTD.DIRSET = PIN4_bm | PIN6_bm | PIN7_bm; //out SPI_SS, SPI_MOSI, SPI_SCK
-    PORTD.DIRCLR = PIN5_bm; //in: SPI_MISO
-    
-    PORTD.OUTCLR = PIN4_bm; //MOSI LOW
-    PORTD.PIN5CTRL = PORT_PULLUPEN_bm;//MISO High
-    PORTD.OUTSET = PIN6_bm; // SCK high
-    
-    PORTA.OUTSET = PIN1_bm | PIN2_bm | PIN3_bm;//ss high, TX RX LED are off
-    
-    PORTA.PIN4CTRL = PORT_PULLUPEN_bm;//tx high
-    PORTA.PIN5CTRL = PORT_PULLUPEN_bm;//te high
-    PORTA.PIN7CTRL = PORT_PULLUPEN_bm;//rx high
-    
-    
-    PORTMUX.USARTROUTEA = PORTMUX_USART0_ALT1_gc;//use alt1 pa4, pa5, pa6, pa7
-	PORTMUX.SPIROUTEA = PORTMUX_SPI0_ALT4_gc; //alt4: PD4, PD5, PD6, PD7
-    
+	PORTC.DIRSET = PIN0_bm; //Set PC0 as RX LED
+
+    // Configure Port D (PD) for USART1 TX and RX
+    PORTD.DIRSET = PIN2_bm | PIN3_bm | PIN5_bm; //Set PD2 as linear motor disable pin, PD3 as PWM, PD5 as direction
+	//PORTD.DIRCLR = PIN4_bm; //Linear motor driver TLE9201SG error flag pin
+
+	PORTF.DIRSET = PIN1_bm | PIN2_bm | PIN3_bm; //Set PF1 as enable, PF2 as pulse, PIN3 as direction signals output for HBS86 driver
+	PORTF.DIRCLR = PIN4_bm | PIN5_bm; //Set PF4 as alarm and PF5 as Pend signals inputs from HBS86 driver
+	PORTF.PIN4CTRL = PORT_PULLUPEN_bm; // Enable pull-up for PF4
+	PORTF.PIN5CTRL = PORT_PULLUPEN_bm; // Enable pull-up for PF5
+
 }

@@ -22,9 +22,12 @@ extern "C" {
 #include <stdlib.h>
 #include "CLK.h"
 #include "GPIO.h"    
+#include "ADC.h"
 #include "USART.h"
 #include "RS485.h"
 #include "crc8.h"
+#include "motors.h"
+#include "Joystick.h"
 
 
 #ifdef	__cplusplus

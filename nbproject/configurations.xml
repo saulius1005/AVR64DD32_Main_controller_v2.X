@@ -20,6 +20,28 @@
       <itemPath>main.c</itemPath>
       <itemPath>settings.h</itemPath>
       <itemPath>MCU_Config.h</itemPath>
+      <itemPath>CLK.c</itemPath>
+      <itemPath>CLK.h</itemPath>
+      <itemPath>crc8.c</itemPath>
+      <itemPath>crc8.h</itemPath>
+      <itemPath>crc8Var.h</itemPath>
+      <itemPath>USART.c</itemPath>
+      <itemPath>USART.h</itemPath>
+      <itemPath>GPIO.c</itemPath>
+      <itemPath>GPIO.h</itemPath>
+      <itemPath>RS485.c</itemPath>
+      <itemPath>RS485.h</itemPath>
+      <itemPath>RS485Var.h</itemPath>
+      <itemPath>ADC.c</itemPath>
+      <itemPath>ADC.h</itemPath>
+      <itemPath>ADCVar.h</itemPath>
+      <itemPath>motors.c</itemPath>
+      <itemPath>motors.h</itemPath>
+      <itemPath>motorsVar.h</itemPath>
+      <itemPath>timers.c</itemPath>
+      <itemPath>Joystick.c</itemPath>
+      <itemPath>Joystick.h</itemPath>
+      <itemPath>JoystickVar.h</itemPath>
     </logicalFolder>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>

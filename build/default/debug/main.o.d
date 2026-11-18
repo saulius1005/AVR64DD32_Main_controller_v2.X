@@ -23,7 +23,7 @@ build/default/debug/main.o.d build/default/debug/main.o: main.c \
  c:\program\ files\microchip\xc8\v4.00\avr\lib\gcc\avr\5.4.0\include\stdarg.h \
  c:\program\ files\microchip\xc8\v4.00\avr\avr\include\string.h \
  c:\program\ files\microchip\xc8\v4.00\avr\avr\include\stdlib.h CLK.h \
- GPIO.h USART.h RS485.h crc8.h MCU_Config.h
+ GPIO.h ADC.h USART.h RS485.h crc8.h motors.h Joystick.h MCU_Config.h
 
 settings.h:
 
@@ -77,10 +77,16 @@ CLK.h:
 
 GPIO.h:
 
+ADC.h:
+
 USART.h:
 
 RS485.h:
 
 crc8.h:
+
+motors.h:
+
+Joystick.h:
 
 MCU_Config.h:

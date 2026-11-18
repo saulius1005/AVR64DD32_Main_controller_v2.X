@@ -10,6 +10,8 @@
 #include "MCU_Config.h"
 
 int main(void) {
+    CLOCK_XOSCHF_clock_init();
+    GPIO_init();
     while (1) {
     }
 }
