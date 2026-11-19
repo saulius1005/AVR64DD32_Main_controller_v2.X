@@ -12,18 +12,35 @@
 extern "C" {
 #endif
     
-#define RS485_CMD_LENGTH 12 // usart command length received from weather station 
+#define RS485_CMD_LENGTH 18 // usart command length received from weather station 
     
-#define RX_LED_ON()    (PORTA.OUTCLR = PIN3_bm)
-#define RX_LED_OFF()    (PORTA.OUTSET = PIN3_bm)
+#define RX_LED_ON()    (PORTC.OUTSET = PIN0_bm)
+#define RX_LED_OFF()    (PORTC.OUTCLR = PIN0_bm)
     
-#define TX_LED_ON()    (PORTA.OUTCLR = PIN2_bm)
-#define TX_LED_OFF()    (PORTA.OUTSET = PIN2_bm) 
+#define TX_LED_ON()    (PORTA.OUTSET = PIN6_bm)
+#define TX_LED_OFF()    (PORTA.OUTCLR = PIN6_bm)    
     
-extern char Device_ID[]; //Device id in char    
+typedef enum {
+    WS_READY = 0,
+    WS_BUSY,
+    WS_CRC_ERROR,
+    WS_TIMEOUT_ERROR
+} ws_status_t;    
+    
+typedef struct {
+    ws_status_t WSStatus;
+    char Device_ID[2];
+	uint16_t AZ;
+	int16_t EL;
+	uint8_t WS;
+	uint8_t WD;
+	uint16_t SLS;
+} ws_t;
 
-void RS485_TX(); //data send to weather station function   
-void RS485_RX(); //infinite wait for command from weather station until  receive "{GET}"    
+extern ws_t ws_data;
+
+void SendAnswerToWeatherStation(); //data send to weather station function   
+void ReadWeatherStation(); //infinite wait for command from weather station until  receive "{GET}"    
 
 #ifdef	__cplusplus
 }

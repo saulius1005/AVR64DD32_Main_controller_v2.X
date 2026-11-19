@@ -18,10 +18,15 @@ void USART0_sendString(char *str){
 	}
 }
 
-char USART0_readChar(){ //but still i keep it
-	USART0.STATUS = USART_RXCIF_bm;// clear buffer before reading
-	while (!(USART0.STATUS & USART_RXCIF_bm));
-	return USART0.RXDATAL;
+char USART0_readChar(){
+	USART0.STATUS = USART_RXCIF_bm;
+    while(!TCA0_Checker()){ //check if time out
+        if(USART0.STATUS & USART_RXCIF_bm){ //if flag set (symbol received)
+            return USART0.RXDATAL; //return it
+        }
+    }
+    ws_data.WSStatus = WS_TIMEOUT_ERROR; //if timeout was reached set error and
+	return 0; //return 0
 }
 
 void USART1_init(){ //For Top Controller readings

@@ -16,7 +16,8 @@ extern "C" {
 #endif
 
 timer_t timer = {
-    .top_controller_respond_time = 500      
+    .top_controller_respond_time = 500, //actual waiting to respond
+    .weather_station_respond_time = 100, //uses as excuse to read button and etc Cheater!!
 };
 
 

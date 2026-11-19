@@ -51,17 +51,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=main.c CLK.c crc8.c USART.c GPIO.c RS485.c ADC.c motors.c timers.c Joystick.c TopController.c
+SOURCEFILES_QUOTED_IF_SPACED=main.c CLK.c crc8.c USART.c GPIO.c RS485.c ADC.c motors.c timers.c Joystick.c TopController.c statemachine.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main.o ${OBJECTDIR}/CLK.o ${OBJECTDIR}/crc8.o ${OBJECTDIR}/USART.o ${OBJECTDIR}/GPIO.o ${OBJECTDIR}/RS485.o ${OBJECTDIR}/ADC.o ${OBJECTDIR}/motors.o ${OBJECTDIR}/timers.o ${OBJECTDIR}/Joystick.o ${OBJECTDIR}/TopController.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/main.o.d ${OBJECTDIR}/CLK.o.d ${OBJECTDIR}/crc8.o.d ${OBJECTDIR}/USART.o.d ${OBJECTDIR}/GPIO.o.d ${OBJECTDIR}/RS485.o.d ${OBJECTDIR}/ADC.o.d ${OBJECTDIR}/motors.o.d ${OBJECTDIR}/timers.o.d ${OBJECTDIR}/Joystick.o.d ${OBJECTDIR}/TopController.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main.o ${OBJECTDIR}/CLK.o ${OBJECTDIR}/crc8.o ${OBJECTDIR}/USART.o ${OBJECTDIR}/GPIO.o ${OBJECTDIR}/RS485.o ${OBJECTDIR}/ADC.o ${OBJECTDIR}/motors.o ${OBJECTDIR}/timers.o ${OBJECTDIR}/Joystick.o ${OBJECTDIR}/TopController.o ${OBJECTDIR}/statemachine.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/main.o.d ${OBJECTDIR}/CLK.o.d ${OBJECTDIR}/crc8.o.d ${OBJECTDIR}/USART.o.d ${OBJECTDIR}/GPIO.o.d ${OBJECTDIR}/RS485.o.d ${OBJECTDIR}/ADC.o.d ${OBJECTDIR}/motors.o.d ${OBJECTDIR}/timers.o.d ${OBJECTDIR}/Joystick.o.d ${OBJECTDIR}/TopController.o.d ${OBJECTDIR}/statemachine.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/main.o ${OBJECTDIR}/CLK.o ${OBJECTDIR}/crc8.o ${OBJECTDIR}/USART.o ${OBJECTDIR}/GPIO.o ${OBJECTDIR}/RS485.o ${OBJECTDIR}/ADC.o ${OBJECTDIR}/motors.o ${OBJECTDIR}/timers.o ${OBJECTDIR}/Joystick.o ${OBJECTDIR}/TopController.o
+OBJECTFILES=${OBJECTDIR}/main.o ${OBJECTDIR}/CLK.o ${OBJECTDIR}/crc8.o ${OBJECTDIR}/USART.o ${OBJECTDIR}/GPIO.o ${OBJECTDIR}/RS485.o ${OBJECTDIR}/ADC.o ${OBJECTDIR}/motors.o ${OBJECTDIR}/timers.o ${OBJECTDIR}/Joystick.o ${OBJECTDIR}/TopController.o ${OBJECTDIR}/statemachine.o
 
 # Source Files
-SOURCEFILES=main.c CLK.c crc8.c USART.c GPIO.c RS485.c ADC.c motors.c timers.c Joystick.c TopController.c
+SOURCEFILES=main.c CLK.c crc8.c USART.c GPIO.c RS485.c ADC.c motors.c timers.c Joystick.c TopController.c statemachine.c
 
 
 
@@ -154,6 +154,12 @@ ${OBJECTDIR}/TopController.o: TopController.c  .generated_files/flags/default/86
 	@${RM} ${OBJECTDIR}/TopController.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1 -g -DDEBUG -D__MPLAB_DEBUGGER_PK5=1 -gdwarf-2  -x c -D__$(MP_PROCESSOR_OPTION)__   -mdfp="${DFP_DIR}/xc8"  -Wl,--gc-sections -O1 -ffunction-sections -fdata-sections -fshort-enums -fno-common -funsigned-char -funsigned-bitfields -Wall -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD)  -gdwarf-3 -mconst-data-in-progmem -mconst-data-in-config-mapped-progmem     -MD -MP -MF "${OBJECTDIR}/TopController.o.d" -MT "${OBJECTDIR}/TopController.o.d" -MT ${OBJECTDIR}/TopController.o -o ${OBJECTDIR}/TopController.o TopController.c 
 	
+${OBJECTDIR}/statemachine.o: statemachine.c  .generated_files/flags/default/6a6f12d520a1b3fae05e7f217d285644f0e821da .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/statemachine.o.d 
+	@${RM} ${OBJECTDIR}/statemachine.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1 -g -DDEBUG -D__MPLAB_DEBUGGER_PK5=1 -gdwarf-2  -x c -D__$(MP_PROCESSOR_OPTION)__   -mdfp="${DFP_DIR}/xc8"  -Wl,--gc-sections -O1 -ffunction-sections -fdata-sections -fshort-enums -fno-common -funsigned-char -funsigned-bitfields -Wall -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD)  -gdwarf-3 -mconst-data-in-progmem -mconst-data-in-config-mapped-progmem     -MD -MP -MF "${OBJECTDIR}/statemachine.o.d" -MT "${OBJECTDIR}/statemachine.o.d" -MT ${OBJECTDIR}/statemachine.o -o ${OBJECTDIR}/statemachine.o statemachine.c 
+	
 else
 ${OBJECTDIR}/main.o: main.c  .generated_files/flags/default/ae52d442abf147e054767a901fb1c28ffa98266 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
 	@${MKDIR} "${OBJECTDIR}" 
@@ -220,6 +226,12 @@ ${OBJECTDIR}/TopController.o: TopController.c  .generated_files/flags/default/ff
 	@${RM} ${OBJECTDIR}/TopController.o.d 
 	@${RM} ${OBJECTDIR}/TopController.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -x c -D__$(MP_PROCESSOR_OPTION)__   -mdfp="${DFP_DIR}/xc8"  -Wl,--gc-sections -O1 -ffunction-sections -fdata-sections -fshort-enums -fno-common -funsigned-char -funsigned-bitfields -Wall -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD)  -gdwarf-3 -mconst-data-in-progmem -mconst-data-in-config-mapped-progmem     -MD -MP -MF "${OBJECTDIR}/TopController.o.d" -MT "${OBJECTDIR}/TopController.o.d" -MT ${OBJECTDIR}/TopController.o -o ${OBJECTDIR}/TopController.o TopController.c 
+	
+${OBJECTDIR}/statemachine.o: statemachine.c  .generated_files/flags/default/6cc6d997ef86a628188d8b6f47be878c732f2f14 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/statemachine.o.d 
+	@${RM} ${OBJECTDIR}/statemachine.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -x c -D__$(MP_PROCESSOR_OPTION)__   -mdfp="${DFP_DIR}/xc8"  -Wl,--gc-sections -O1 -ffunction-sections -fdata-sections -fshort-enums -fno-common -funsigned-char -funsigned-bitfields -Wall -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD)  -gdwarf-3 -mconst-data-in-progmem -mconst-data-in-config-mapped-progmem     -MD -MP -MF "${OBJECTDIR}/statemachine.o.d" -MT "${OBJECTDIR}/statemachine.o.d" -MT ${OBJECTDIR}/statemachine.o -o ${OBJECTDIR}/statemachine.o statemachine.c 
 	
 endif
 

@@ -8,11 +8,16 @@
 #ifndef RS485VAR_H
 #define	RS485VAR_H
 
+#include "RS485.h"
+
+
 #ifdef	__cplusplus
 extern "C" {
 #endif
     
-char Device_ID[2] = "01"; //set sensor board ID as 0x01
+ws_t ws_data = {
+  .Device_ID = "00"  
+};
 
 #ifdef	__cplusplus
 }

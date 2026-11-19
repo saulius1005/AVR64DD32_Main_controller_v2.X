@@ -1,7 +1,7 @@
 #include "settings.h"
 #include "TopControllerVar.h"
 
-uint16_t fast_atoi_hex(const char *p, uint8_t digits){// char to hex
+uint16_t fast_atoi_hex(const char *p, uint8_t digits){// char to uint16_t
     
     uint16_t value = 0;
     for (uint8_t i = 0; i < digits; i++){
@@ -39,7 +39,7 @@ void TopDataParser(char *buf){
     sensor_data.HPAzimuth   = fast_atoi_hex(&buf[i], 4); i += 4; //4-7
     sensor_data.PVU         = fast_atoi_hex(&buf[i], 3); i += 3; //8-10
     sensor_data.PVI         = fast_atoi_hex(&buf[i], 3); i += 3; //11-13
-    endSwitches             = fast_atoi_hex(&buf[i], 1); //14
+    endSwitches             = fast_atoi_hex(&buf[i], 1);         //14
     
     sensor_data.ElMin = endSwitches & 0x01;// extracting each end swith value
 	sensor_data.ElMax = endSwitches & 0x02;

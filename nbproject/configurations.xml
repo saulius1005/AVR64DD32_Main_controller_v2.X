@@ -47,6 +47,9 @@
       <itemPath>TopControllerVar.h</itemPath>
       <itemPath>timers.h</itemPath>
       <itemPath>timersVar.h</itemPath>
+      <itemPath>statemachine.c</itemPath>
+      <itemPath>statemachine.h</itemPath>
+      <itemPath>statemachineVar.h</itemPath>
     </logicalFolder>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>

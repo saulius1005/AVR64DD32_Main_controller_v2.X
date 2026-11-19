@@ -37,6 +37,10 @@ typedef struct {
 
 extern top_cont_t sensor_data;
 
+uint16_t fast_atoi_hex(const char *p, uint8_t digits); // char to uint16_t
+void TopReceiver(); //reads all sensor data from TopController
+
+
 #ifdef	__cplusplus
 }
 #endif
