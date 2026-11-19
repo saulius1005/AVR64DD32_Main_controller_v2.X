@@ -23,8 +23,8 @@ build/default/debug/RS485.o.d build/default/debug/RS485.o: RS485.c \
  c:\program\ files\microchip\xc8\v4.00\avr\lib\gcc\avr\5.4.0\include\stdarg.h \
  c:\program\ files\microchip\xc8\v4.00\avr\avr\include\string.h \
  c:\program\ files\microchip\xc8\v4.00\avr\avr\include\stdlib.h CLK.h \
- GPIO.h ADC.h USART.h RS485.h crc8.h motors.h Joystick.h TopController.h \
- RS485Var.h
+ GPIO.h timers.h ADC.h USART.h RS485.h crc8.h motors.h Joystick.h \
+ TopController.h RS485Var.h
 
 settings.h:
 
@@ -77,6 +77,8 @@ c:\program\ files\microchip\xc8\v4.00\avr\avr\include\stdlib.h:
 CLK.h:
 
 GPIO.h:
+
+timers.h:
 
 ADC.h:
 

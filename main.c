@@ -12,6 +12,8 @@
 int main(void) {
     CLOCK_XOSCHF_clock_init();
     GPIO_init();
+    TCA0_init();
     while (1) {
+        
     }
 }

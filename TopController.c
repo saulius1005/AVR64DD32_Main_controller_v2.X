@@ -30,8 +30,10 @@ void TopDataParser(char *buf){
     uint8_t CC = (uint8_t)fast_atoi_hex(&buf[15], 2); //15,16 symbols are crc 'a6'->0xa6
     bool crc_ok = verify_crc8_cdma2000(crc_data, 8, CC);//crc buf, total bytes, received crc
     
-    if(!crc_ok)//skip further code if crc is not correct
-        return;    
+    if(!crc_ok){//skip further code if crc is not correct
+        sensor_data.TopStatus = TOP_CRC_ERROR;
+        return;  
+    }
 
     sensor_data.HPElevation = fast_atoi_hex(&buf[i], 4); i += 4; //0-3
     sensor_data.HPAzimuth   = fast_atoi_hex(&buf[i], 4); i += 4; //4-7
@@ -43,6 +45,7 @@ void TopDataParser(char *buf){
 	sensor_data.ElMax = endSwitches & 0x02;
 	sensor_data.AzMin = endSwitches & 0x04;
 	sensor_data.AzMax = endSwitches & 0x08;
+    sensor_data.TopStatus = TOP_READY; //all ok
   
 }
 
@@ -51,27 +54,30 @@ void TopReceiver() {
     static uint8_t index = 0;
 	static char cmd[TOP_MESSAGE_LENGTH] = {0}; // Empty command array
 	static bool start = false;
-
-    char c = USART0_readChar(); // Reading a character from USART
-     
-    if (start) {
-        if (c == '>') { // If received cmd end symbol
-            start = false;
-            cmd[index] = 0;
-            index = 0;
-			TopDataParser(cmd);
-        } 
-        else if (index < TOP_MESSAGE_LENGTH) {// fill aray
-                cmd[index++] = c; // Store received character in command array
+    sensor_data.TopStatus = TOP_BUSY; //set as busy and start reading
+    TCA0_ON(timer.top_controller_respond_time);    
+    while(sensor_data.TopStatus == TOP_BUSY){
+        char c = USART1_readChar(); // Reading a character from USART
+        if (start) {
+            if (c == '>') { // If received cmd end symbol
+                start = false;
+                cmd[index] = 0;
+                index = 0;
+                TopDataParser(cmd); //move on with data processing               
+            } 
+            else if (index < TOP_MESSAGE_LENGTH) {// fill aray
+                    cmd[index++] = c; // Store received character in command array
+            }
+            else{ //if array full start from the beginning
+                index = 0;
+                start = false;
+            }
         }
-        else{ //if array full start from the beginning
+        if (c == '<') { // If received cmd start symbol
+            start = true;
             index = 0;
-            start = false;
-        }
+        }        
     }
-    if (c == '<') { // If received cmd start symbol
-        start = true;
-        index = 0;
-    }
+    TCA0_OFF(); //if all ok and TopStatus == TOP_READY or receive crc error continue with further code
     
 }

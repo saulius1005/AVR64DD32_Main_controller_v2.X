@@ -41,12 +41,16 @@ void USART1_sendString(char *str){
 	}
 }
 
-char USART1_readChar(){ //but still i keep it
-	USART1.STATUS = USART_RXCIF_bm;// clear buffer before reading
-	while (!(USART1.STATUS & USART_RXCIF_bm));
-	return USART1.RXDATAL;
+char USART1_readChar(){
+	USART1.STATUS = USART_RXCIF_bm;
+    while(!TCA0_Checker()){ //check if time out
+        if(USART1.STATUS & USART_RXCIF_bm){ //if flag set (symbol received)
+            return USART1.RXDATAL; //return it
+        }
+    }
+    sensor_data.TopStatus = TOP_TIMEOUT_ERROR; //if timeout was reached set error and
+	return 0; //return 0
 }
-
 
 void USART_printf(uint8_t usart_ch, const char *format, ...) {
 	char buffer[96]; // Temporary buffer for formatted message

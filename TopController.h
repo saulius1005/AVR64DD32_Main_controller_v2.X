@@ -15,9 +15,10 @@ extern "C" {
 #define TOP_MESSAGE_LENGTH 17
     
 typedef enum {
-    top_ready = 0,
-    top_busy,
-    top_error
+    TOP_READY = 0,
+    TOP_BUSY,
+    TOP_CRC_ERROR,
+    TOP_TIMEOUT_ERROR
 } top_status_t;    
 
 typedef struct {

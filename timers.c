@@ -1,4 +1,5 @@
 #include "settings.h"
+#include "timersVar.h"
 
 void TCD0_init_stepper_PWM(uint32_t freq_hz, uint8_t duty_percent) {
 
@@ -46,4 +47,12 @@ void TCA0_ON(uint16_t period_ms){ //up to 2s and 796ms if fcpu is 24Mhz
     TCA0.SINGLE.PER = ticks;
     TCA0.SINGLE.CNT = 0;
     TCA0.SINGLE.CTRLA |= TCA_SINGLE_ENABLE_bm;
+}
+
+bool TCA0_Checker(){
+    if(TCA0.SINGLE.INTFLAGS & TCA_SINGLE_OVF_bm) {       
+        TCA0.SINGLE.INTFLAGS = TCA_SINGLE_OVF_bm;
+        return true;
+    }
+    return false;
 }
