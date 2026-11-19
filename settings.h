@@ -28,6 +28,7 @@ extern "C" {
 #include "crc8.h"
 #include "motors.h"
 #include "Joystick.h"
+#include "TopController.h"
 
 
 #ifdef	__cplusplus

@@ -17,3 +17,11 @@ uint8_t crc_packer(){
     i = crc8_cdma2000(buf_for_crc8, i);    
 	return i;
 }
+
+bool verify_crc8_cdma2000(uint8_t *data, uint8_t length, uint8_t crc) {
+	uint8_t calculatedcrc = 0xFF;
+	for (size_t i = 0; i < length; i++) { // length = 8 baitai
+		calculatedcrc = crc8_table[calculatedcrc ^ data[i]];
+	}   
+	return calculatedcrc == crc;
+}

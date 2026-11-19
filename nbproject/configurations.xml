@@ -42,6 +42,9 @@
       <itemPath>Joystick.c</itemPath>
       <itemPath>Joystick.h</itemPath>
       <itemPath>JoystickVar.h</itemPath>
+      <itemPath>TopController.c</itemPath>
+      <itemPath>TopController.h</itemPath>
+      <itemPath>TopControllerVar.h</itemPath>
     </logicalFolder>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>

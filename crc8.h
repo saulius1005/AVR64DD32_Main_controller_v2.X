@@ -13,7 +13,7 @@ extern "C" {
 #endif
 
 uint8_t crc_packer(); //calculate and return crc value according to internal data
-
+bool verify_crc8_cdma2000(uint8_t *data, uint8_t length, uint8_t crc);
 
 #ifdef	__cplusplus
 }
