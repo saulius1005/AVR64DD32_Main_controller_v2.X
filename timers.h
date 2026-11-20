@@ -20,9 +20,16 @@ typedef struct{
 extern timer_t timer;
 
 void TCA0_init();
-void TCA0_ON(uint16_t period_ms);
-void TCA0_OFF();
-bool TCA0_Checker();
+
+void TCB0_init();
+void TCB0_ON(uint16_t period_ms);
+void TCB0_OFF();
+bool TCB0_Checker();
+
+void TCB1_init(); //
+void TCB1_ON(uint16_t period_us);
+void TCB1_OFF();
+bool TCB1_Checker();
 
 void TCD0_init_stepper_PWM(uint32_t freq_hz, uint8_t duty_percent);
 

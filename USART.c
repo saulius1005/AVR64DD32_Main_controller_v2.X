@@ -20,7 +20,7 @@ void USART0_sendString(char *str){
 
 char USART0_readChar(){
 	USART0.STATUS = USART_RXCIF_bm;
-    while(!TCA0_Checker()){ //check if time out
+    while(!TCB0_Checker()){ //check if time out
         if(USART0.STATUS & USART_RXCIF_bm){ //if flag set (symbol received)
             return USART0.RXDATAL; //return it
         }
@@ -48,7 +48,7 @@ void USART1_sendString(char *str){
 
 char USART1_readChar(){
 	USART1.STATUS = USART_RXCIF_bm;
-    while(!TCA0_Checker()){ //check if time out
+    while(!TCB0_Checker()){ //check if time out
         if(USART1.STATUS & USART_RXCIF_bm){ //if flag set (symbol received)
             return USART1.RXDATAL; //return it
         }

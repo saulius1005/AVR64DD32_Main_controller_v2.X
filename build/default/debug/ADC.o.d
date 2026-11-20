@@ -22,8 +22,8 @@ build/default/debug/ADC.o.d build/default/debug/ADC.o: ADC.c settings.h \
  c:\program\ files\microchip\xc8\v4.00\avr\lib\gcc\avr\5.4.0\include\stdarg.h \
  c:\program\ files\microchip\xc8\v4.00\avr\avr\include\string.h \
  c:\program\ files\microchip\xc8\v4.00\avr\avr\include\stdlib.h CLK.h \
- GPIO.h timers.h ADC.h USART.h RS485.h crc8.h motors.h Joystick.h \
- TopController.h ADCVar.h
+ GPIO.h timers.h i2c.h ADC.h USART.h WeatherStationHandler.h crc8.h \
+ motors.h Joystick.h TopControllerHandler.h ADCVar.h
 
 settings.h:
 
@@ -79,11 +79,13 @@ GPIO.h:
 
 timers.h:
 
+i2c.h:
+
 ADC.h:
 
 USART.h:
 
-RS485.h:
+WeatherStationHandler.h:
 
 crc8.h:
 
@@ -91,6 +93,6 @@ motors.h:
 
 Joystick.h:
 
-TopController.h:
+TopControllerHandler.h:
 
 ADCVar.h:
