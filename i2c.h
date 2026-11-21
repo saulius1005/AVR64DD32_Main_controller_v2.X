@@ -25,7 +25,6 @@ typedef enum {
     I2C_TIMEOUT,
     I2C_ACK, //not error
     I2C_NACK, //not error
-    I2C_BAD_ACTION, //if trying write after initiating of the reading (add+read)
     I2C_BUS_ERROR,
     I2C_ARB_LOST
 }I2C_errors_t;

@@ -72,8 +72,7 @@ bool I2C_address(uint8_t address, I2C_actions_t action){ //after that need to ch
 
 bool I2C_write(uint8_t data, bool repstart){ //check if possible to write, then check bus state, then send data, then check error: NACK, timeout or all ok and ack
     
-    if (I2C.error != I2C_ACK && I2C.error != I2C_OK){ // if previous was reading skip further code
-        I2C.error = I2C_BAD_ACTION;
+    if (I2C.error != I2C_ACK){ // if no success from add+write
         return 0;
     }
     if ((TWI0.MSTATUS & TWI_BUSSTATE_gm) != TWI_BUSSTATE_OWNER_gc) { //if error in bus (something crash, shorted and so on)
@@ -120,7 +119,6 @@ bool I2C_write(uint8_t data, bool repstart){ //check if possible to write, then 
 bool I2C_read(uint8_t *data, bool ack){
     
     if (I2C.error != I2C_OK){ // if not received ack from add+read
-        I2C.error = I2C_BAD_ACTION;
         return 0;
     }
     if ((TWI0.MSTATUS & TWI_BUSSTATE_gm) != TWI_BUSSTATE_OWNER_gc) { //if error in bus (something crash, shorted and so on)
@@ -159,7 +157,7 @@ bool I2C_read(uint8_t *data, bool ack){
 bool I2C_stop(){
 
     if ((TWI0.MSTATUS & TWI_BUSSTATE_gm) != TWI_BUSSTATE_OWNER_gc) { //if bus not owned return
-        I2C.error = I2C_BAD_ACTION;
+        I2C.error = I2C_BUS_ERROR;
         return 0;
     }
 
