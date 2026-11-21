@@ -13,7 +13,8 @@ int main(void) {
     CLOCK_INHF_clock_init();
     GPIO_init();
     TCA0_init();
-    TCB0_init();
+    TCB0_init(); //initiate ms timer module
+    TCB1_init(); //initiate us timer module (I2c timeout)
     TCB0_ON(500);
     while (1) {
         if(TCB0_Checker())

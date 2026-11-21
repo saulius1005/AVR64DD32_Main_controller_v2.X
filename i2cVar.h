@@ -12,8 +12,9 @@
 extern "C" {
 #endif
 
-I2C_Status I2C = {
-    .error = 0 ///< Initialize the error state to 0 (no error)
+I2C_module_t I2C = {
+    .wait_tx_time = 5000, //wait at max 5ms
+    .wait_rx_time = 5000
 };
 
 
