@@ -6,6 +6,8 @@
             <file>file:/C:/Users/Saulius/MPLABXProjects/AVR64DD32_Main_controller_v2.X/i2c.c</file>
             <file>file:/C:/Users/Saulius/MPLABXProjects/AVR64DD32_Main_controller_v2.X/CLK.h</file>
             <file>file:/C:/Users/Saulius/MPLABXProjects/AVR64DD32_Main_controller_v2.X/main.c</file>
+            <file>file:/C:/Users/Saulius/MPLABXProjects/AVR64DD32_Main_controller_v2.X/i2c.h</file>
+            <file>file:/C:/Users/Saulius/MPLABXProjects/AVR64DD32_Main_controller_v2.X/SSD1306Var.h</file>
             <file>file:/C:/Users/Saulius/MPLABXProjects/AVR64DD32_Main_controller_v2.X/timers.h</file>
             <file>file:/C:/Users/Saulius/MPLABXProjects/AVR64DD32_Main_controller_v2.X/USART.c</file>
             <file>file:/C:/Users/Saulius/MPLABXProjects/AVR64DD32_Main_controller_v2.X/settings.h</file>
@@ -15,8 +17,11 @@
             <file>file:/C:/Users/Saulius/MPLABXProjects/AVR64DD32_Main_controller_v2.X/WeatherStationHandler.c</file>
             <file>file:/C:/Users/Saulius/MPLABXProjects/AVR64DD32_Main_controller_v2.X/CLK.c</file>
             <file>file:/C:/Program%20Files/Microchip/MPLABX/v6.35/packs/Microchip/AVR-Dx_DFP/2.8.343/xc8/avr/include/avr/ioavr64dd32.h</file>
+            <file>file:/C:/Users/Saulius/MPLABXProjects/AVR64DD32_Main_controller_v2.X/SSD1306.c</file>
+            <file>file:/C:/Users/Saulius/MPLABXProjects/AVR64DD32_Main_controller_v2.X/SSD1306.h</file>
             <file>file:/C:/Users/Saulius/MPLABXProjects/AVR64DD32_Main_controller_v2.X/WeatherStationHandler.h</file>
             <file>file:/C:/Users/Saulius/MPLABXProjects/AVR64DD32_Main_controller_v2.X/TopControllerHandler.c</file>
+            <file>file:/C:/Users/Saulius/MPLABXProjects/AVR64DD32_Main_controller_v2.X/i2cVar.h</file>
         </group>
     </open-files>
 </project-private>

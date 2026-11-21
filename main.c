@@ -18,7 +18,7 @@ int main(void) {
     TCB1_init(); //initiate us timer module (I2c timeout)
     
     screen_init();   
-  
+    screen_clear();
     TCB0_ON(500);  
     screen_write_formatted_text("---------------------", 1, ALIGN_CENTER); //full screen width line
     while (1) {

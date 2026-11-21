@@ -8,7 +8,7 @@ void I2C_recover() { //at least one old survivor
 }
 
 void I2C_init() { //it changes a bit
-	TWI0.CTRLA = TWI_SDAHOLD_OFF_gc; // sda hold settings for master keep of or make it 50ns?
+	TWI0.CTRLA = TWI_SDAHOLD_OFF_gc | TWI_FMPEN_ON_gc;
 	TWI0.MBAUD = (uint8_t)TWI_BAUD; //baudrate is set	
 	TWI0.MSTATUS = TWI_BUSSTATE_IDLE_gc; //bus state set idle
     TWI0.MCTRLA = TWI_ENABLE_bm; //on i2c

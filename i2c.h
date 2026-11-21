@@ -12,8 +12,9 @@
 extern "C" {
 #endif
 
-#define F_SCL 100000UL 
-#define TWI_BAUD ((F_CPU / (2 * F_SCL)) - 5)
+#define F_SCL 1000000UL 
+#define T_RISE_NS 100UL //need to measure.
+#define TWI_BAUD ((uint8_t)(((F_CPU / F_SCL) - 10UL - ((F_CPU / 1000000UL) * T_RISE_NS / 1000UL)) / 2UL))
 
 typedef enum {
     I2C_WRITE = 0,
