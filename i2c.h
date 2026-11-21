@@ -12,7 +12,7 @@
 extern "C" {
 #endif
 
-#define F_SCL 400000UL 
+#define F_SCL 100000UL 
 #define TWI_BAUD ((F_CPU / (2 * F_SCL)) - 5)
 
 typedef enum {

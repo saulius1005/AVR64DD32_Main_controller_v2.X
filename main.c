@@ -12,12 +12,18 @@
 int main(void) {
     CLOCK_INHF_clock_init();
     GPIO_init();
+    I2C_init();   
     TCA0_init();
     TCB0_init(); //initiate ms timer module
     TCB1_init(); //initiate us timer module (I2c timeout)
-    TCB0_ON(500);
+    
+    screen_init();   
+  
+    TCB0_ON(500);  
+    screen_write_formatted_text("---------------------", 1, ALIGN_CENTER); //full screen width line
     while (1) {
-        if(TCB0_Checker())
-            PORTC.OUTTGL = PIN0_bm;
+
+         if(!TCB0_Checker()) //led toggling every 500ms
+            PORTC.OUTTGL = PIN0_bm;   
     }
 }

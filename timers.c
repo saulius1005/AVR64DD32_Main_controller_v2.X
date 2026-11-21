@@ -58,9 +58,9 @@ void TCB0_ON(uint16_t period_ms){ //from 1ms up to 2.796s top value is 2796
 bool TCB0_Checker(){
     if (TCB0.INTFLAGS & TCB_CAPT_bm){
         TCB0.INTFLAGS = TCB_CAPT_bm;
-        return true;
+        return false;
     }
-    return false;
+    return true;
 }
 
 
@@ -83,7 +83,7 @@ void TCB1_ON(uint16_t period_us){ //from 1us up to 5.46125ms top value is 5461
 bool TCB1_Checker(){
     if (TCB1.INTFLAGS & TCB_CAPT_bm){
         TCB1.INTFLAGS = TCB_CAPT_bm;
-        return true;
+        return false;
     }
-    return false;
+    return true;
 }

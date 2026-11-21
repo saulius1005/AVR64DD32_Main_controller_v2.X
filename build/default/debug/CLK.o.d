@@ -23,7 +23,7 @@ build/default/debug/CLK.o.d build/default/debug/CLK.o: CLK.c settings.h \
  c:\program\ files\microchip\xc8\v4.00\avr\avr\include\string.h \
  c:\program\ files\microchip\xc8\v4.00\avr\avr\include\stdlib.h CLK.h \
  GPIO.h timers.h i2c.h ADC.h USART.h WeatherStationHandler.h crc8.h \
- motors.h Joystick.h TopControllerHandler.h
+ motors.h Joystick.h TopControllerHandler.h SSD1306.h
 
 settings.h:
 
@@ -94,3 +94,5 @@ motors.h:
 Joystick.h:
 
 TopControllerHandler.h:
+
+SSD1306.h:
