@@ -30,7 +30,7 @@ typedef enum {
     
 typedef struct {
     ws_status_t WSStatus;
-    char Device_ID[2];
+    char Device_ID[3];
 	uint16_t AZ;
 	int16_t EL;
 	uint8_t WS;

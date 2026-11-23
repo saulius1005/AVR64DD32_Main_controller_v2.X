@@ -20,18 +20,40 @@ typedef enum {
 	MOTOR_LINEAR = 0,
 	MOTOR_STEPPER
 } MotorType_t;  
+
+typedef enum {
+    SET = 0,
+    WAIT,
+    DONE            
+}MotorState_t;
+
+typedef enum {
+    FORWARD = 0,
+    BACKWARD
+}MotorDirection_t;
+
+typedef enum {
+    DISABLING = 0,
+    ENABLING,
+    STOPING,
+    RUN,
+    SET_DIRECTION
+}MotorAction_t;
+
+typedef enum {
+    DISABLED = 0,
+    ENABLED,
+    STOPED,
+    RUNING,
+}MotorCondition_t;
     
 typedef struct {
-	bool lastDirection;
-	bool alreadyStarted;
-	bool alreadyStoped;
-	bool alreadyEnabled;
-	bool alreadyDisabled;
-    bool inAction;
-	uint16_t measuredVoltage;
-	int16_t measuredCurrent;
-	uint8_t stuckCount;
-	uint8_t noChangeCount;
+    MotorState_t state;
+    MotorAction_t action;
+    MotorCondition_t condition;
+    MotorDirection_t direction;
+    MotorDirection_t lastDirection;
+    
 } motor_init_t;
 
 typedef struct {

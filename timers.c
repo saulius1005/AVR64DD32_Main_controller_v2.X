@@ -87,3 +87,27 @@ bool TCB1_Checker(){
     }
     return true;
 }
+
+void TCB2_init(){
+    TCB2.CTRLA = TCB_CLKSEL_DIV2_gc;   
+    TCB2.CTRLB = TCB_CNTMODE_INT_gc;
+}
+
+void TCB2_OFF(){
+    TCB2.CTRLA &= ~TCB_ENABLE_bm;
+}
+
+void TCB2_ON(uint16_t period_us){ //from 1us up to 5.46125ms top value is 5461
+    uint16_t ticks = ((uint64_t)period_us  * (F_CPU / 2UL)) / 1000000UL; //1us = 24Mhz/2 = 12Mhz/1M = 12 ticks
+    TCB2.CCMP = ticks;
+    TCB2.CNT = 0;
+    TCB2.CTRLA |=  TCB_ENABLE_bm;
+}
+
+bool TCB2_Checker(){
+    if (TCB2.INTFLAGS & TCB_CAPT_bm){
+        TCB2.INTFLAGS = TCB_CAPT_bm;
+        return false;
+    }
+    return true;
+}

@@ -34,21 +34,17 @@ void ADC_read_all(){ // all measurements should take: 97.75kHz / ((7*16) + (0.62
         ADC0_read(6-i); //start from MCU voltage
     }
     
-    uint16_t *source[6] = {&ADC0_sensors[JX_ch]->result, &ADC0_sensors[JY_ch]->result, &ADC0_sensors[SU_ch]->result, &ADC0_sensors[LU_ch]->result, &ADC0_sensors[SI_ch]->result, &ADC0_sensors[LI_ch]->result};  //make calculations from source of the channel 
-    uint16_t *target[6] = {&ADC0_sensors[JX_ch]->out, &ADC0_sensors[JY_ch]->out, &ADC0_sensors[SU_ch]->out, &ADC0_sensors[LU_ch]->out, &ADC0_sensors[SI_ch]->out, &ADC0_sensors[LI_ch]->out}; //creating  aray of the results channels
-    //uint16_t *ref = &ADC0_sensors[MCU_ch]->result; //not used but one day...
-    
     //Joystick calculations
-    *target[JX_ch] = (int16_t)(*source[JX_ch] - 2048) * Joystick_steps; //12bit ad middle is 2048. How many of one direction swing had different options for actions 4096/819 = 5 of full range 2 for right, one neutral, and 2 for left
-    *target[JY_ch] = (int16_t)(*source[JY_ch] - 2048) * Joystick_steps; //same for y axis 2 top, 1 in middle neutral, and 2 for bottom 
+    ADC0_sensors[JX_ch]->out = (int16_t)(ADC0_sensors[JX_ch]->result - 2048) * Joystick_steps;//12bit ad middle is 2048. How many of one direction swing had different options for actions 4096/819 = 5 of full range 2 for right, one neutral, and 2 for left
+    ADC0_sensors[JY_ch]->out = (int16_t)(ADC0_sensors[JY_ch]->result - 2048) * Joystick_steps;//same for y axis 2 top, 1 in middle neutral, and 2 for bottom 
     
     //Motors voltage calculations
-    *target[SU_ch] = (uint16_t)((double)*source[SU_ch] * 0.1775) + 0.5; //AMC1131 full range is 2.0V, so 4000ADC (2V at ref 2.048V) meaning 71V(710k) (stepper) and if we want use one digit after point, interpretate it as 4000 == 710, then 710/4000 = 0.1775. EXMP adc reads 3000 * 0.1775 = 532,5 + 0.5 = 533 or 53.3V
-    *target[LU_ch] = (uint16_t)((double)*source[LU_ch] * 0.075) + 0.5; //For linear difference is AMC1131 resistors and voltage 30V (300k) so koef is 300/4000 = 0.075. Exmpl 3000ADC = 225 + 0.5 = 225.5 or 22.5V 
+    ADC0_sensors[SU_ch]->out = ((double)ADC0_sensors[SU_ch]->result * 0.1775) + 0.5; //AMC1131 full range is 2.0V, so 4000ADC (2V at ref 2.048V) meaning 71V(710k) (stepper) and if we want use one digit after point, interpretate it as 4000 == 710, then 710/4000 = 0.1775. EXMP adc reads 3000 * 0.1775 = 532,5 + 0.5 = 533 or 53.3V
+    ADC0_sensors[LU_ch]->out = ((double)ADC0_sensors[LU_ch]->result * 0.075) + 0.5; //For linear difference is AMC1131 resistors and voltage 30V (300k) so koef is 300/4000 = 0.075. Exmpl 3000ADC = 225 + 0.5 = 225.5 or 22.5V 
     
     //Current calculation
-    *target[SI_ch] = (uint16_t)((double)*source[SU_ch] * 0.25) + 0.5; //TMCS1100A4 is 400mV/A, ADC ref is 4.096V, 4096 total adc steps. PERFECT!!! 400 adc steps = 1A, so if i want to see 1.00 use it as 100/400 = 0.25. Exmp. ADC = 158*0.25 = 39.5 + 0.5 = 40 or 0.40A
-    *target[LI_ch] = (uint16_t)((double)*source[LU_ch] * 0.25) + 0.5; //identical current measurement
+    ADC0_sensors[SI_ch]->out = ((double)ADC0_sensors[SI_ch]->result * 0.25) + 0.5; //TMCS1100A4 is 400mV/A, ADC ref is 4.096V, 4096 total adc steps. PERFECT!!! 400 adc steps = 1A, so if i want to see 1.00 use it as 100/400 = 0.25. Exmp. ADC = 158*0.25 = 39.5 + 0.5 = 40 or 0.40A
+    ADC0_sensors[LI_ch]->out = ((double)ADC0_sensors[LI_ch]->result * 0.25) + 0.5; //identical current measurement
     
     
     

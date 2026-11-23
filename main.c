@@ -20,7 +20,8 @@ int main(void) {
     screen_init();   
     screen_clear();
     TCB0_ON(500);  
-    screen_write_formatted_text("---------------------", 1, ALIGN_CENTER); //full screen width line
+    show_window();
+    
     while (1) {
 
          if(!TCB0_Checker()) //led toggling every 500ms

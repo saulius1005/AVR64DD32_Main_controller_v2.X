@@ -21,15 +21,20 @@ extern timer_t timer;
 
 void TCA0_init();
 
-void TCB0_init();
+void TCB0_init();//ms timer for weather station, top controller receivers and for stepper motor
 void TCB0_ON(uint16_t period_ms);
 void TCB0_OFF();
 bool TCB0_Checker();
 
-void TCB1_init(); //
+void TCB1_init(); //us timer for I2C LCD screen
 void TCB1_ON(uint16_t period_us);
 void TCB1_OFF();
 bool TCB1_Checker();
+
+void TCB2_init(); //us timer for stepper
+void TCB2_ON(uint16_t period_us);
+void TCB2_OFF();
+bool TCB2_Checker();
 
 void TCD0_init_stepper_PWM(uint32_t freq_hz, uint8_t duty_percent);
 

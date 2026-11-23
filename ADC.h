@@ -41,7 +41,7 @@ typedef struct{
 }analog_sensors_t;
 
 extern analog_sensors_t AnalogSensors;
-extern analog_t *ADC0_sensors[7];
+extern analog_t *ADC0_sensors[7]; //same but different
 
 void ADC0_init(); //adc settings
 void ADC_read_all(); //read all analog voltage channels

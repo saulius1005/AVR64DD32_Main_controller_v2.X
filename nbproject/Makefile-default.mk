@@ -51,17 +51,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=main.c CLK.c crc8.c USART.c GPIO.c ADC.c motors.c timers.c Joystick.c statemachine.c TopControllerHandler.c WeatherStationHandler.c i2c.c SSD1306.c
+SOURCEFILES_QUOTED_IF_SPACED=main.c CLK.c crc8.c USART.c GPIO.c ADC.c motors.c timers.c Joystick.c statemachine.c TopControllerHandler.c WeatherStationHandler.c i2c.c SSD1306.c windows.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main.o ${OBJECTDIR}/CLK.o ${OBJECTDIR}/crc8.o ${OBJECTDIR}/USART.o ${OBJECTDIR}/GPIO.o ${OBJECTDIR}/ADC.o ${OBJECTDIR}/motors.o ${OBJECTDIR}/timers.o ${OBJECTDIR}/Joystick.o ${OBJECTDIR}/statemachine.o ${OBJECTDIR}/TopControllerHandler.o ${OBJECTDIR}/WeatherStationHandler.o ${OBJECTDIR}/i2c.o ${OBJECTDIR}/SSD1306.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/main.o.d ${OBJECTDIR}/CLK.o.d ${OBJECTDIR}/crc8.o.d ${OBJECTDIR}/USART.o.d ${OBJECTDIR}/GPIO.o.d ${OBJECTDIR}/ADC.o.d ${OBJECTDIR}/motors.o.d ${OBJECTDIR}/timers.o.d ${OBJECTDIR}/Joystick.o.d ${OBJECTDIR}/statemachine.o.d ${OBJECTDIR}/TopControllerHandler.o.d ${OBJECTDIR}/WeatherStationHandler.o.d ${OBJECTDIR}/i2c.o.d ${OBJECTDIR}/SSD1306.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main.o ${OBJECTDIR}/CLK.o ${OBJECTDIR}/crc8.o ${OBJECTDIR}/USART.o ${OBJECTDIR}/GPIO.o ${OBJECTDIR}/ADC.o ${OBJECTDIR}/motors.o ${OBJECTDIR}/timers.o ${OBJECTDIR}/Joystick.o ${OBJECTDIR}/statemachine.o ${OBJECTDIR}/TopControllerHandler.o ${OBJECTDIR}/WeatherStationHandler.o ${OBJECTDIR}/i2c.o ${OBJECTDIR}/SSD1306.o ${OBJECTDIR}/windows.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/main.o.d ${OBJECTDIR}/CLK.o.d ${OBJECTDIR}/crc8.o.d ${OBJECTDIR}/USART.o.d ${OBJECTDIR}/GPIO.o.d ${OBJECTDIR}/ADC.o.d ${OBJECTDIR}/motors.o.d ${OBJECTDIR}/timers.o.d ${OBJECTDIR}/Joystick.o.d ${OBJECTDIR}/statemachine.o.d ${OBJECTDIR}/TopControllerHandler.o.d ${OBJECTDIR}/WeatherStationHandler.o.d ${OBJECTDIR}/i2c.o.d ${OBJECTDIR}/SSD1306.o.d ${OBJECTDIR}/windows.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/main.o ${OBJECTDIR}/CLK.o ${OBJECTDIR}/crc8.o ${OBJECTDIR}/USART.o ${OBJECTDIR}/GPIO.o ${OBJECTDIR}/ADC.o ${OBJECTDIR}/motors.o ${OBJECTDIR}/timers.o ${OBJECTDIR}/Joystick.o ${OBJECTDIR}/statemachine.o ${OBJECTDIR}/TopControllerHandler.o ${OBJECTDIR}/WeatherStationHandler.o ${OBJECTDIR}/i2c.o ${OBJECTDIR}/SSD1306.o
+OBJECTFILES=${OBJECTDIR}/main.o ${OBJECTDIR}/CLK.o ${OBJECTDIR}/crc8.o ${OBJECTDIR}/USART.o ${OBJECTDIR}/GPIO.o ${OBJECTDIR}/ADC.o ${OBJECTDIR}/motors.o ${OBJECTDIR}/timers.o ${OBJECTDIR}/Joystick.o ${OBJECTDIR}/statemachine.o ${OBJECTDIR}/TopControllerHandler.o ${OBJECTDIR}/WeatherStationHandler.o ${OBJECTDIR}/i2c.o ${OBJECTDIR}/SSD1306.o ${OBJECTDIR}/windows.o
 
 # Source Files
-SOURCEFILES=main.c CLK.c crc8.c USART.c GPIO.c ADC.c motors.c timers.c Joystick.c statemachine.c TopControllerHandler.c WeatherStationHandler.c i2c.c SSD1306.c
+SOURCEFILES=main.c CLK.c crc8.c USART.c GPIO.c ADC.c motors.c timers.c Joystick.c statemachine.c TopControllerHandler.c WeatherStationHandler.c i2c.c SSD1306.c windows.c
 
 
 
@@ -172,6 +172,12 @@ ${OBJECTDIR}/SSD1306.o: SSD1306.c  .generated_files/flags/default/339bca8ec21552
 	@${RM} ${OBJECTDIR}/SSD1306.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1 -g -DDEBUG  -gdwarf-2  -x c -D__$(MP_PROCESSOR_OPTION)__   -mdfp="${DFP_DIR}/xc8"  -Wl,--gc-sections -O1 -ffunction-sections -fdata-sections -fshort-enums -fno-common -funsigned-char -funsigned-bitfields -Wall -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD)  -gdwarf-3 -mconst-data-in-progmem -mconst-data-in-config-mapped-progmem     -MD -MP -MF "${OBJECTDIR}/SSD1306.o.d" -MT "${OBJECTDIR}/SSD1306.o.d" -MT ${OBJECTDIR}/SSD1306.o -o ${OBJECTDIR}/SSD1306.o SSD1306.c 
 	
+${OBJECTDIR}/windows.o: windows.c  .generated_files/flags/default/905e629213035abdda4405c05fc45ae736ee0b76 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/windows.o.d 
+	@${RM} ${OBJECTDIR}/windows.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1 -g -DDEBUG  -gdwarf-2  -x c -D__$(MP_PROCESSOR_OPTION)__   -mdfp="${DFP_DIR}/xc8"  -Wl,--gc-sections -O1 -ffunction-sections -fdata-sections -fshort-enums -fno-common -funsigned-char -funsigned-bitfields -Wall -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD)  -gdwarf-3 -mconst-data-in-progmem -mconst-data-in-config-mapped-progmem     -MD -MP -MF "${OBJECTDIR}/windows.o.d" -MT "${OBJECTDIR}/windows.o.d" -MT ${OBJECTDIR}/windows.o -o ${OBJECTDIR}/windows.o windows.c 
+	
 else
 ${OBJECTDIR}/main.o: main.c  .generated_files/flags/default/ae52d442abf147e054767a901fb1c28ffa98266 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
 	@${MKDIR} "${OBJECTDIR}" 
@@ -256,6 +262,12 @@ ${OBJECTDIR}/SSD1306.o: SSD1306.c  .generated_files/flags/default/69752639b5565a
 	@${RM} ${OBJECTDIR}/SSD1306.o.d 
 	@${RM} ${OBJECTDIR}/SSD1306.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -x c -D__$(MP_PROCESSOR_OPTION)__   -mdfp="${DFP_DIR}/xc8"  -Wl,--gc-sections -O1 -ffunction-sections -fdata-sections -fshort-enums -fno-common -funsigned-char -funsigned-bitfields -Wall -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD)  -gdwarf-3 -mconst-data-in-progmem -mconst-data-in-config-mapped-progmem     -MD -MP -MF "${OBJECTDIR}/SSD1306.o.d" -MT "${OBJECTDIR}/SSD1306.o.d" -MT ${OBJECTDIR}/SSD1306.o -o ${OBJECTDIR}/SSD1306.o SSD1306.c 
+	
+${OBJECTDIR}/windows.o: windows.c  .generated_files/flags/default/b35978ac488f363ad4ad4f2e27a8e0c8546a8a7 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/windows.o.d 
+	@${RM} ${OBJECTDIR}/windows.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -x c -D__$(MP_PROCESSOR_OPTION)__   -mdfp="${DFP_DIR}/xc8"  -Wl,--gc-sections -O1 -ffunction-sections -fdata-sections -fshort-enums -fno-common -funsigned-char -funsigned-bitfields -Wall -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD)  -gdwarf-3 -mconst-data-in-progmem -mconst-data-in-config-mapped-progmem     -MD -MP -MF "${OBJECTDIR}/windows.o.d" -MT "${OBJECTDIR}/windows.o.d" -MT ${OBJECTDIR}/windows.o -o ${OBJECTDIR}/windows.o windows.c 
 	
 endif
 

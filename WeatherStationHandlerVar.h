@@ -8,15 +8,14 @@
 #ifndef RS485VAR_H
 #define	RS485VAR_H
 
-#include "WeatherStationHandler.h"
-
-
 #ifdef	__cplusplus
 extern "C" {
 #endif
     
 ws_t ws_data = {
-  .Device_ID = "00"  
+  .AZ = 17190,
+  .EL = 3590,
+  .Device_ID = "00\0"  
 };
 
 #ifdef	__cplusplus

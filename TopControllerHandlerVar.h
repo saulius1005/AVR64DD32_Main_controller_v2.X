@@ -13,7 +13,8 @@ extern "C" {
 #endif
 
 top_cont_t sensor_data = {
-  0 
+  .AZ =  15699,
+  .EL = 3488
 };
 
 

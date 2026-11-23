@@ -17,10 +17,12 @@ extern "C" {
 
 motor_t motor = {
   .stepper = {
-      0
+      .direction = FORWARD,
+      .lastDirection = BACKWARD,
   },  
   .linear = {
-      0
+      .direction = FORWARD,
+      .lastDirection = BACKWARD,
   }
 };
 
