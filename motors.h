@@ -33,9 +33,9 @@ typedef enum {
 }MotorDirection_t;
 
 typedef enum {
-    DISABLING = 0,
-    ENABLING,
-    STOPING,
+    DISABLE = 0,
+    ENABLE,
+    STOP,
     RUN,
     SET_DIRECTION
 }MotorAction_t;
@@ -53,15 +53,53 @@ typedef struct {
     MotorCondition_t condition;
     MotorDirection_t direction;
     MotorDirection_t lastDirection;
+    uint16_t wait_time;
+    bool init_status;
     
 } motor_init_t;
 
-typedef struct {
-	motor_init_t stepper;
-    motor_init_t linear;
-} motor_t;
+typedef struct { //calback for both motors are the same
+    void (*init)(void);
+    void (*run)(void);
+    void (*stop)(void);
 
-extern motor_t motor;
+    bool (*read_error)(void);
+    bool (*read_position)(void); //only for stepper
+} motor_callbacks_t;
+
+typedef struct {
+    motor_init_t motor_init;
+    
+    PORT_t *port;
+    uint8_t enable_pin;
+    uint8_t direction_pin;
+
+    motor_callbacks_t callbacks;
+
+    MotorAction_t action;
+    MotorCondition_t condition;
+    MotorState_t state;
+
+    MotorDirection_t direction;
+    MotorDirection_t lastDirection;
+
+} both_motor_t;
+
+extern both_motor_t stepper;
+extern both_motor_t linear;
+
+void Stepper_init();
+void Stepper_Run();
+void Stepper_Stop();
+bool Read_Stepper_ALM();
+bool Read_Stepper_PEND();
+
+void Linear_init();
+void Linear_Run();
+void Linear_Stop();
+bool Read_LinearMotor_EF();
+
+void Motor_Actions(both_motor_t *motor); //stepper and linear common control function: enabling, disabling, run, stop, change directions.
 
 #ifdef	__cplusplus
 }

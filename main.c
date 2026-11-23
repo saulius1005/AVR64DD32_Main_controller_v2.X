@@ -13,9 +13,9 @@ int main(void) {
     CLOCK_INHF_clock_init();
     GPIO_init();
     I2C_init();  
-
-    TCA0_init_linear_PWM(20000, 95);
-    TCD0_init_stepper_PWM(25600, 50);
+    
+    stepper.callbacks.init(); //MCU config for stepper
+    linear.callbacks.init(); //MCU config for linear
     
     TCB0_init(); //initiate us timer module (I2c timeout)
     TCB1_init();
@@ -28,21 +28,32 @@ int main(void) {
     bool on = false;
     show_window();
     
+        stepper.action = ENABLE; //once Condition will be the same Enabled 
+        linear.action = ENABLE; 
+        
+        stepper.direction = FORWARD; //set direction once
+        linear.direction = FORWARD;         
+    
     while (1) {
-
-         if(!RTC_Checker()){ //led toggling every 500ms
+        
+   
+        
+        Motor_Actions(&stepper);
+        if (stepper.motor_init.init_status) //wait until stepper driver enabling free up RTC timer. same here skip if enabled
+            Motor_Actions(&linear); 
+        
+        
+         if(!RTC_Checker()){ //run stop every 500ms?
             PORTC.OUTTGL = PIN0_bm;   
             if(on){
                 on = false;
-                TCA0.SPLIT.CTRLB &= ~TCA_SPLIT_HCMP0EN_bm;
-                while (!(TCD0.STATUS & TCD_ENRDY_bm));
-                    TCD0.CTRLA |= TCD_ENABLE_bm;
+                stepper.action = RUN;
+                linear.action = RUN;
             }
             else{
                 on = true;
-                TCA0.SPLIT.CTRLB |= TCA_SPLIT_HCMP0EN_bm;
-                while (!(TCD0.STATUS & TCD_ENRDY_bm));
-                    TCD0.CTRLA &= ~TCD_ENABLE_bm;
+                stepper.action = STOP;
+                linear.action = STOP;
             }
          }
     }
