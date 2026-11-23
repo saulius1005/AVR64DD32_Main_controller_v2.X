@@ -20,11 +20,11 @@ bool I2C_address(uint8_t address, I2C_actions_t action){ //after that need to ch
     
     TWI0.MADDR = (address << 1) | action; //write address and w or r
 
-    TCB1_ON(I2C.wait_tx_time); //set timer to 5ms
-    while (TCB1_Checker()) {
+    TCB0_ON(I2C.wait_tx_time); //set timer to 5ms
+    while (TCB0_Checker()) {
         if (TWI0.MSTATUS & (TWI_BUSERR_bm | TWI_ARBLOST_bm)) {
             I2C.error = (TWI0.MSTATUS & TWI_BUSERR_bm) ? I2C_BUS_ERROR : I2C_ARB_LOST;
-            TCB1_OFF();
+            TCB0_OFF();
             return 0;
         }
         if (TWI0.MSTATUS & TWI_WIF_bm){
@@ -32,7 +32,7 @@ bool I2C_address(uint8_t address, I2C_actions_t action){ //after that need to ch
             break;
         }
     }
-    TCB1_OFF();
+    TCB0_OFF();
 
     if (!ok_flag){ // if timeout
         I2C.error = I2C_TIMEOUT; //set error
@@ -46,11 +46,11 @@ bool I2C_address(uint8_t address, I2C_actions_t action){ //after that need to ch
     
     if (action == I2C_READ) { //if reading
         ok_flag = false; //reset flag
-        TCB1_ON(I2C.wait_rx_time); //star timer
-        while (TCB1_Checker()) {
+        TCB0_ON(I2C.wait_rx_time); //star timer
+        while (TCB0_Checker()) {
             if (TWI0.MSTATUS & (TWI_BUSERR_bm | TWI_ARBLOST_bm)) {
                 I2C.error = (TWI0.MSTATUS & TWI_BUSERR_bm) ? I2C_BUS_ERROR : I2C_ARB_LOST;
-                TCB1_OFF();
+                TCB0_OFF();
                 return 0;
             }
             if (TWI0.MSTATUS & TWI_RIF_bm){ 
@@ -58,7 +58,7 @@ bool I2C_address(uint8_t address, I2C_actions_t action){ //after that need to ch
                 break;
             }
         }
-        TCB1_OFF();
+        TCB0_OFF();
         if (!ok_flag){ // if timeout
             I2C.error = I2C_TIMEOUT; //set error
             return 0; //return 0
@@ -83,11 +83,11 @@ bool I2C_write(uint8_t data, bool repstart){ //check if possible to write, then 
     TWI0.MDATA = data; //easiest part- write data   
     bool ok_flag = false;
     
-    TCB1_ON(I2C.wait_tx_time); //start timer
-    while (TCB1_Checker()) {
+    TCB0_ON(I2C.wait_tx_time); //start timer
+    while (TCB0_Checker()) {
         if (TWI0.MSTATUS & (TWI_BUSERR_bm | TWI_ARBLOST_bm)) {
             I2C.error = (TWI0.MSTATUS & TWI_BUSERR_bm) ? I2C_BUS_ERROR : I2C_ARB_LOST;
-            TCB1_OFF();
+            TCB0_OFF();
             return 0;
         }
         if (TWI0.MSTATUS & TWI_WIF_bm) {
@@ -95,7 +95,7 @@ bool I2C_write(uint8_t data, bool repstart){ //check if possible to write, then 
             break;
         }
     }
-    TCB1_OFF();
+    TCB0_OFF();
     
     if (!ok_flag) { //if timeout
         I2C.error = I2C_TIMEOUT;
@@ -127,11 +127,11 @@ bool I2C_read(uint8_t *data, bool ack){
     }
        
     bool ok_flag = false; //prepare flag
-    TCB1_ON(I2C.wait_rx_time); //star timer
-    while (TCB1_Checker()) {
+    TCB0_ON(I2C.wait_rx_time); //star timer
+    while (TCB0_Checker()) {
     if (TWI0.MSTATUS & (TWI_BUSERR_bm | TWI_ARBLOST_bm)) {
         I2C.error = (TWI0.MSTATUS & TWI_BUSERR_bm) ? I2C_BUS_ERROR : I2C_ARB_LOST;
-        TCB1_OFF();
+        TCB0_OFF();
         return 0;
     }
     if (TWI0.MSTATUS & TWI_RIF_bm) {
@@ -139,7 +139,7 @@ bool I2C_read(uint8_t *data, bool ack){
         break;
     }
 }
-    TCB1_OFF();
+    TCB0_OFF();
     if (!ok_flag){ // if timeout
         I2C.error = I2C_TIMEOUT; //set error
         return 0; //return 0
@@ -164,12 +164,12 @@ bool I2C_stop(){
     TWI0.MCTRLB = TWI_MCMD_STOP_gc; //set stop command
 
     bool ok_flag = false;
-    TCB1_ON(I2C.wait_rx_time);
+    TCB0_ON(I2C.wait_rx_time);
 
-    while (TCB1_Checker()) {
+    while (TCB0_Checker()) {
         if (TWI0.MSTATUS & (TWI_BUSERR_bm | TWI_ARBLOST_bm)) {
             I2C.error = (TWI0.MSTATUS & TWI_BUSERR_bm) ? I2C_BUS_ERROR : I2C_ARB_LOST;
-            TCB1_OFF();
+            TCB0_OFF();
             return 0;
         }
         if ((TWI0.MSTATUS & TWI_BUSSTATE_gm) == TWI_BUSSTATE_IDLE_gc) { //wait until bus is idle
@@ -178,7 +178,7 @@ bool I2C_stop(){
         }
     }
 
-    TCB1_OFF();
+    TCB0_OFF();
 
     if (!ok_flag) {
         I2C.error = I2C_TIMEOUT;

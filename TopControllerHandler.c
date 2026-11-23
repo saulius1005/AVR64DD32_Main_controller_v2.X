@@ -55,7 +55,7 @@ void ReadTopController() {
 	static char cmd[TOP_MESSAGE_LENGTH] = {0}; // Empty command array
 	static bool start = false;
     sensor_data.TopStatus = TOP_BUSY; //set as busy and start reading
-    TCB0_ON(timer.top_controller_respond_time);    
+    RTC_ON(timer.top_controller_respond_time);    
     while(sensor_data.TopStatus == TOP_BUSY){
         char c = USART1_readChar(); // Reading a character from USART
         if (start) {
@@ -78,6 +78,6 @@ void ReadTopController() {
             index = 0;
         }        
     }
-    TCB0_OFF(); //if all ok and TopStatus == TOP_READY or receive crc error continue with further code
+    RTC_OFF(); //if all ok and TopStatus == TOP_READY or receive crc error continue with further code
     
 }

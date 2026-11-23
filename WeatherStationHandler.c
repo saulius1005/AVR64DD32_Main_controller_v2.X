@@ -38,7 +38,7 @@ void ReadWeatherStation(){
 	static char cmd[RS485_CMD_LENGTH] = {0}; // Empty command array
 	static uint8_t start = 0;
     ws_data.WSStatus = WS_READING; //set as busy and start reading
-    TCB0_ON(timer.weather_station_respond_time);    
+    RTC_ON(timer.weather_station_respond_time);    
     while(ws_data.WSStatus == WS_READING){
         char c = USART0_readChar(); // Reading a character from USART    
         if (start) {
@@ -65,6 +65,6 @@ void ReadWeatherStation(){
             RX_LED_ON();
         }      
     }
-    TCB0_OFF();
+    RTC_OFF();
     
 }
