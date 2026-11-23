@@ -58,14 +58,14 @@ void Linear_Stop() {
 
 void Motor_Actions(both_motor_t *motor) {
 
-    switch(motor->action) {
+    switch(motor->motor_init.action) {
         case ENABLE:
         case DISABLE:
-            if (motor->condition != (motor->action == ENABLE ? DISABLED : ENABLED))//if condition is not the same as action if enabled != enabling if disabled != disabling
+            if (motor->motor_init.enable_condition != (motor->motor_init.action == ENABLE ? DISABLED : ENABLED))//if condition is not the same as action if enabled != enabling if disabled != disabling
                 break;//if so condition and action is the same skip further code
             switch(motor->state) {
                 case SET:
-                    if (motor->action == ENABLE)
+                    if (motor->motor_init.action == ENABLE)
                         motor->port->OUTCLR  = motor->enable_pin;
                     else
                         motor->port->OUTSET  = motor->enable_pin;
@@ -82,7 +82,7 @@ void Motor_Actions(both_motor_t *motor) {
                 break;
 
                 case DONE:
-                    motor->condition = (motor->action == ENABLE) ? ENABLED : DISABLED; //set new condition
+                    motor->motor_init.enable_condition = (motor->motor_init.action == ENABLE) ? ENABLED : DISABLED; //set new condition
                     motor->state = SET; //reset for further actions
                     motor->motor_init.init_status = true; //motor complete initialized and RTC timer now is free
                 break;
@@ -91,12 +91,12 @@ void Motor_Actions(both_motor_t *motor) {
 
         case RUN:
         case STOP:
-            if (motor->condition != (motor->action == RUN ? STOPED : RUNING)) //identical to enabling/ disabling
+            if (motor->motor_init.run_condition != (motor->motor_init.action == RUN ? STOPED : RUNING)) //identical to enabling/ disabling
                 break;
 
             switch(motor->state) {
                 case SET:
-                    if (motor->action == RUN)
+                    if (motor->motor_init.action == RUN)
                         motor->callbacks.run();
                     else
                         motor->callbacks.stop();
@@ -109,7 +109,7 @@ void Motor_Actions(both_motor_t *motor) {
                 break;
 
                 case DONE:
-                    motor->condition = (motor->action == RUN) ? RUNING : STOPED;
+                    motor->motor_init.run_condition = (motor->motor_init.action == RUN) ? RUNING : STOPED;
                     motor->state = SET;
                 break;
             }

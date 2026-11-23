@@ -41,16 +41,20 @@ typedef enum {
 }MotorAction_t;
 
 typedef enum {
-    DISABLED = 0,
-    ENABLED,
+    DISABLED,
+    ENABLED
+} EnableCondition_t;
+
+typedef enum {
     STOPED,
-    RUNING,
-}MotorCondition_t;
+    RUNING
+} RunCondition_t;
     
 typedef struct {
     MotorState_t state;
     MotorAction_t action;
-    MotorCondition_t condition;
+    EnableCondition_t enable_condition;
+    RunCondition_t run_condition;
     MotorDirection_t direction;
     MotorDirection_t lastDirection;
     uint16_t wait_time;
@@ -75,9 +79,6 @@ typedef struct {
     uint8_t direction_pin;
 
     motor_callbacks_t callbacks;
-
-    MotorAction_t action;
-    MotorCondition_t condition;
     MotorState_t state;
 
     MotorDirection_t direction;

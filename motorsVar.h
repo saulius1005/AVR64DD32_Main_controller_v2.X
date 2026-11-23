@@ -8,6 +8,9 @@
 #ifndef MOTORSVAR_H
 #define	MOTORSVAR_H
 
+#include "motors.h"
+
+
 #ifdef	__cplusplus
 extern "C" {
 #endif
@@ -15,8 +18,9 @@ extern "C" {
 both_motor_t stepper = {
     .motor_init = {
         .state = SET,
-        .action = DISABLE,
-        .condition = DISABLED,
+        .action = ENABLE,
+        .enable_condition = DISABLED,
+        .run_condition = STOPED,
         .direction = FORWARD,
         .lastDirection = BACKWARD,
         .init_status = false,
@@ -37,8 +41,9 @@ both_motor_t stepper = {
 both_motor_t linear = {
     .motor_init = {
         .state = SET,
-        .action = DISABLE,
-        .condition = DISABLED,
+        .action = ENABLE,
+        .enable_condition = DISABLED,
+        .run_condition = STOPED,
         .direction = FORWARD,
         .lastDirection = BACKWARD,
         .init_status = false,

@@ -20,40 +20,44 @@ int main(void) {
     TCB0_init(); //initiate us timer module (I2c timeout)
     TCB1_init();
     
-    RTC_ON(500);
-    
     screen_init();   
     screen_clear();
+    
+    TCB1_ON(5000);
 
     bool on = false;
-    show_window();
+    bool testflag = false;
     
-        stepper.action = ENABLE; //once Condition will be the same Enabled 
-        linear.action = ENABLE; 
-        
-        stepper.direction = FORWARD; //set direction once
-        linear.direction = FORWARD;         
-    
+    uint16_t half_second = 0;
+    show_window();    
+
     while (1) {
         
-   
+        if (!stepper.motor_init.init_status) { //if stepper not init
+            stepper.motor_init.action = ENABLE;
+        }
+        else if(!linear.motor_init.init_status){ //only after, do the same with linear
+            linear.motor_init.action = ENABLE;           
+        }
         
+        
+        stepper.direction = FORWARD;
+        linear.direction = FORWARD;
+
         Motor_Actions(&stepper);
-        if (stepper.motor_init.init_status) //wait until stepper driver enabling free up RTC timer. same here skip if enabled
-            Motor_Actions(&linear); 
+        Motor_Actions(&linear);    
         
-        
-         if(!RTC_Checker()){ //run stop every 500ms?
+         if(!TCB1_Checker()){ //run stop every 5ms?
             PORTC.OUTTGL = PIN0_bm;   
-            if(on){
-                on = false;
-                stepper.action = RUN;
-                linear.action = RUN;
+            if(testflag){
+                testflag = false;
+                stepper.motor_init.action = RUN;
+                linear.motor_init.action = RUN;
             }
             else{
-                on = true;
-                stepper.action = STOP;
-                linear.action = STOP;
+                testflag = true;
+                stepper.motor_init.action = STOP;
+                linear.motor_init.action = STOP;
             }
          }
     }
