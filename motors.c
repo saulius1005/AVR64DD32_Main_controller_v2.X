@@ -137,23 +137,22 @@ void Motor_SetDir(both_motor_t *motor, Direction_t dir){
         return;
     if(motor->run) //not allowing change dir when running
         return;
-    motor->dir_now = dir; //set direction
-    if(motor->dir_now == motor->dir_last) //if direction is the same skip
+    if(dir == motor->dir_last) //if direction is the same skip
         return;   
     switch(motor->dirstate){
         case DIR_SET:
-            if(motor->dir_now)
+            if(dir)
                 motor->port->OUTSET = motor->direction_pin;
             else
                 motor->port->OUTCLR = motor->direction_pin;
 
             motor->dirstate = DIR_WAIT;
         break;
-        case DIR_WAIT:
+        case DIR_WAIT: //some delay
             motor->dirstate = DIR_DONE;
         break;
         case DIR_DONE:
-            motor->dir_last = motor->dir_now;
+            motor->dir_last = dir;
             motor->dirstate = DIR_SET;
         break;
     }

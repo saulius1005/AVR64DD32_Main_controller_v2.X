@@ -42,8 +42,7 @@ both_motor_t stepper = {
 
     .init = false, //not initialized
     .enabled = false, //not enabled
-    .dir_now = true, //dir now and dir last at initialization values should be opposite
-    .dir_last = false, 
+    .dir_last = FORWARD, //previous direction is...
     .run = false //not running
     
 };
@@ -74,8 +73,7 @@ both_motor_t linear = {
 
     .init = false,
     .enabled = false,
-    .dir_now = true,
-    .dir_last = false,
+    .dir_last = FORWARD,
     .run = false
             
 };

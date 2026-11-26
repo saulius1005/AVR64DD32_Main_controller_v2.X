@@ -34,8 +34,8 @@ int main(void) {
         stepper.callbacks.enable();
         linear.callbacks.enable();
                 
-        stepper.callbacks.dir_forward();
-        linear.callbacks.dir_forward();
+        stepper.callbacks.dir_backward();
+        linear.callbacks.dir_backward();
          
          if(!TCB2_Checker()){ //run stop every 5ms?
             PORTC.OUTTGL = PIN0_bm;   

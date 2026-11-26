@@ -10,13 +10,9 @@
 
 #ifdef	__cplusplus
 extern "C" {
-#endif
-
-#define Stepper_Voltage_Compensation_koef 1.05 //59,62V Actual measured voltage and calculated 56,7V    
-#define LinearMotor_Voltage_Compensation_koef 0.987755 //24,2 Actual measured voltage and calculated 24,5    
+#endif  
     
-    
-typedef enum {
+typedef enum { //not used for now
 	MOTOR_LINEAR = 0,
 	MOTOR_STEPPER
 } MotorType_t;  
@@ -67,8 +63,7 @@ typedef struct {
     bool init;
     bool enabled;  
     bool run;   
-    bool dir_now;
-    bool dir_last;
+    Direction_t dir_last;
     
 } both_motor_t;
 
