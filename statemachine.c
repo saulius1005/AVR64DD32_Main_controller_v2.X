@@ -3,9 +3,9 @@
 
 void states(){
     //1. read weather station
-    ReadWeatherStation();
+
     //2. read top controller
-    ReadTopController();
+
     ADC_read_all(); //read all data from local sensors
     //3. show sensor data and check joystick?
     show_window();  

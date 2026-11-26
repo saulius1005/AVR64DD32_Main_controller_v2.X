@@ -8,18 +8,10 @@
 #ifndef TIMERVAR_H
 #define	TIMERVAR_H
 
-#include "timers.h"
-
-
 #ifdef	__cplusplus
 extern "C" {
 #endif
-
-timer_t timer = {
-    .top_controller_respond_time = 500, //actual waiting to respond
-    .weather_station_respond_time = 100, //uses as excuse to read button and etc Cheater!!
-};
-
+    
 
 #ifdef	__cplusplus
 }

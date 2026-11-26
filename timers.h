@@ -11,13 +11,6 @@
 #ifdef	__cplusplus
 extern "C" {
 #endif
-    
-typedef struct{
-    volatile uint16_t top_controller_respond_time;
-    volatile uint16_t weather_station_respond_time;
-} timer_t;    
-
-extern timer_t timer;
 
 void TCA0_init();
 void TCA0_init_linear_PWM(uint16_t freq_hz, uint8_t duty_percent);

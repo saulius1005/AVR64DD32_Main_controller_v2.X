@@ -26,13 +26,12 @@ extern "C" {
 #include "i2c.h"
 #include "ADC.h"
 #include "USART.h"
-#include "WeatherStationHandler.h"
 #include "crc8.h"
 #include "motors.h"
 #include "Joystick.h"  
-#include "TopControllerHandler.h"
 #include "SSD1306.h"
 #include "windows.h"
+#include "Communication.h"
 
 
 

@@ -23,8 +23,8 @@ build/default/production/GPIO.o.d build/default/production/GPIO.o: GPIO.c \
  c:\program\ files\microchip\xc8\v4.00\avr\lib\gcc\avr\5.4.0\include\stdarg.h \
  c:\program\ files\microchip\xc8\v4.00\avr\avr\include\string.h \
  c:\program\ files\microchip\xc8\v4.00\avr\avr\include\stdlib.h CLK.h \
- GPIO.h timers.h i2c.h ADC.h USART.h WeatherStationHandler.h crc8.h \
- motors.h Joystick.h TopControllerHandler.h SSD1306.h windows.h
+ GPIO.h timers.h i2c.h ADC.h USART.h crc8.h motors.h Joystick.h SSD1306.h \
+ windows.h Communication.h
 
 settings.h:
 
@@ -86,16 +86,14 @@ ADC.h:
 
 USART.h:
 
-WeatherStationHandler.h:
-
 crc8.h:
 
 motors.h:
 
 Joystick.h:
 
-TopControllerHandler.h:
-
 SSD1306.h:
 
 windows.h:
+
+Communication.h:

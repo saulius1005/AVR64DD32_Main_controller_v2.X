@@ -51,17 +51,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=main.c CLK.c crc8.c USART.c GPIO.c ADC.c motors.c timers.c Joystick.c statemachine.c TopControllerHandler.c WeatherStationHandler.c i2c.c SSD1306.c windows.c
+SOURCEFILES_QUOTED_IF_SPACED=main.c CLK.c crc8.c USART.c GPIO.c ADC.c motors.c timers.c Joystick.c statemachine.c i2c.c SSD1306.c windows.c Communication.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main.o ${OBJECTDIR}/CLK.o ${OBJECTDIR}/crc8.o ${OBJECTDIR}/USART.o ${OBJECTDIR}/GPIO.o ${OBJECTDIR}/ADC.o ${OBJECTDIR}/motors.o ${OBJECTDIR}/timers.o ${OBJECTDIR}/Joystick.o ${OBJECTDIR}/statemachine.o ${OBJECTDIR}/TopControllerHandler.o ${OBJECTDIR}/WeatherStationHandler.o ${OBJECTDIR}/i2c.o ${OBJECTDIR}/SSD1306.o ${OBJECTDIR}/windows.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/main.o.d ${OBJECTDIR}/CLK.o.d ${OBJECTDIR}/crc8.o.d ${OBJECTDIR}/USART.o.d ${OBJECTDIR}/GPIO.o.d ${OBJECTDIR}/ADC.o.d ${OBJECTDIR}/motors.o.d ${OBJECTDIR}/timers.o.d ${OBJECTDIR}/Joystick.o.d ${OBJECTDIR}/statemachine.o.d ${OBJECTDIR}/TopControllerHandler.o.d ${OBJECTDIR}/WeatherStationHandler.o.d ${OBJECTDIR}/i2c.o.d ${OBJECTDIR}/SSD1306.o.d ${OBJECTDIR}/windows.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main.o ${OBJECTDIR}/CLK.o ${OBJECTDIR}/crc8.o ${OBJECTDIR}/USART.o ${OBJECTDIR}/GPIO.o ${OBJECTDIR}/ADC.o ${OBJECTDIR}/motors.o ${OBJECTDIR}/timers.o ${OBJECTDIR}/Joystick.o ${OBJECTDIR}/statemachine.o ${OBJECTDIR}/i2c.o ${OBJECTDIR}/SSD1306.o ${OBJECTDIR}/windows.o ${OBJECTDIR}/Communication.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/main.o.d ${OBJECTDIR}/CLK.o.d ${OBJECTDIR}/crc8.o.d ${OBJECTDIR}/USART.o.d ${OBJECTDIR}/GPIO.o.d ${OBJECTDIR}/ADC.o.d ${OBJECTDIR}/motors.o.d ${OBJECTDIR}/timers.o.d ${OBJECTDIR}/Joystick.o.d ${OBJECTDIR}/statemachine.o.d ${OBJECTDIR}/i2c.o.d ${OBJECTDIR}/SSD1306.o.d ${OBJECTDIR}/windows.o.d ${OBJECTDIR}/Communication.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/main.o ${OBJECTDIR}/CLK.o ${OBJECTDIR}/crc8.o ${OBJECTDIR}/USART.o ${OBJECTDIR}/GPIO.o ${OBJECTDIR}/ADC.o ${OBJECTDIR}/motors.o ${OBJECTDIR}/timers.o ${OBJECTDIR}/Joystick.o ${OBJECTDIR}/statemachine.o ${OBJECTDIR}/TopControllerHandler.o ${OBJECTDIR}/WeatherStationHandler.o ${OBJECTDIR}/i2c.o ${OBJECTDIR}/SSD1306.o ${OBJECTDIR}/windows.o
+OBJECTFILES=${OBJECTDIR}/main.o ${OBJECTDIR}/CLK.o ${OBJECTDIR}/crc8.o ${OBJECTDIR}/USART.o ${OBJECTDIR}/GPIO.o ${OBJECTDIR}/ADC.o ${OBJECTDIR}/motors.o ${OBJECTDIR}/timers.o ${OBJECTDIR}/Joystick.o ${OBJECTDIR}/statemachine.o ${OBJECTDIR}/i2c.o ${OBJECTDIR}/SSD1306.o ${OBJECTDIR}/windows.o ${OBJECTDIR}/Communication.o
 
 # Source Files
-SOURCEFILES=main.c CLK.c crc8.c USART.c GPIO.c ADC.c motors.c timers.c Joystick.c statemachine.c TopControllerHandler.c WeatherStationHandler.c i2c.c SSD1306.c windows.c
+SOURCEFILES=main.c CLK.c crc8.c USART.c GPIO.c ADC.c motors.c timers.c Joystick.c statemachine.c i2c.c SSD1306.c windows.c Communication.c
 
 
 
@@ -148,18 +148,6 @@ ${OBJECTDIR}/statemachine.o: statemachine.c  .generated_files/flags/default/3305
 	@${RM} ${OBJECTDIR}/statemachine.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1 -g -DDEBUG  -gdwarf-2  -x c -D__$(MP_PROCESSOR_OPTION)__   -mdfp="${DFP_DIR}/xc8"  -Wl,--gc-sections -O1 -ffunction-sections -fdata-sections -fshort-enums -fno-common -funsigned-char -funsigned-bitfields -Wall -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD)  -gdwarf-3 -mconst-data-in-progmem -mconst-data-in-config-mapped-progmem     -MD -MP -MF "${OBJECTDIR}/statemachine.o.d" -MT "${OBJECTDIR}/statemachine.o.d" -MT ${OBJECTDIR}/statemachine.o -o ${OBJECTDIR}/statemachine.o statemachine.c 
 	
-${OBJECTDIR}/TopControllerHandler.o: TopControllerHandler.c  .generated_files/flags/default/ca01f378be16001d3e8d714799419bf9a0c8415b .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/TopControllerHandler.o.d 
-	@${RM} ${OBJECTDIR}/TopControllerHandler.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1 -g -DDEBUG  -gdwarf-2  -x c -D__$(MP_PROCESSOR_OPTION)__   -mdfp="${DFP_DIR}/xc8"  -Wl,--gc-sections -O1 -ffunction-sections -fdata-sections -fshort-enums -fno-common -funsigned-char -funsigned-bitfields -Wall -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD)  -gdwarf-3 -mconst-data-in-progmem -mconst-data-in-config-mapped-progmem     -MD -MP -MF "${OBJECTDIR}/TopControllerHandler.o.d" -MT "${OBJECTDIR}/TopControllerHandler.o.d" -MT ${OBJECTDIR}/TopControllerHandler.o -o ${OBJECTDIR}/TopControllerHandler.o TopControllerHandler.c 
-	
-${OBJECTDIR}/WeatherStationHandler.o: WeatherStationHandler.c  .generated_files/flags/default/a8c81c3b39667d60e2c33ed9474cc42786fbcdfc .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/WeatherStationHandler.o.d 
-	@${RM} ${OBJECTDIR}/WeatherStationHandler.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1 -g -DDEBUG  -gdwarf-2  -x c -D__$(MP_PROCESSOR_OPTION)__   -mdfp="${DFP_DIR}/xc8"  -Wl,--gc-sections -O1 -ffunction-sections -fdata-sections -fshort-enums -fno-common -funsigned-char -funsigned-bitfields -Wall -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD)  -gdwarf-3 -mconst-data-in-progmem -mconst-data-in-config-mapped-progmem     -MD -MP -MF "${OBJECTDIR}/WeatherStationHandler.o.d" -MT "${OBJECTDIR}/WeatherStationHandler.o.d" -MT ${OBJECTDIR}/WeatherStationHandler.o -o ${OBJECTDIR}/WeatherStationHandler.o WeatherStationHandler.c 
-	
 ${OBJECTDIR}/i2c.o: i2c.c  .generated_files/flags/default/bc837c29c408e322022db4d0fe10deab643f6dc3 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/i2c.o.d 
@@ -177,6 +165,12 @@ ${OBJECTDIR}/windows.o: windows.c  .generated_files/flags/default/905e629213035a
 	@${RM} ${OBJECTDIR}/windows.o.d 
 	@${RM} ${OBJECTDIR}/windows.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1 -g -DDEBUG  -gdwarf-2  -x c -D__$(MP_PROCESSOR_OPTION)__   -mdfp="${DFP_DIR}/xc8"  -Wl,--gc-sections -O1 -ffunction-sections -fdata-sections -fshort-enums -fno-common -funsigned-char -funsigned-bitfields -Wall -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD)  -gdwarf-3 -mconst-data-in-progmem -mconst-data-in-config-mapped-progmem     -MD -MP -MF "${OBJECTDIR}/windows.o.d" -MT "${OBJECTDIR}/windows.o.d" -MT ${OBJECTDIR}/windows.o -o ${OBJECTDIR}/windows.o windows.c 
+	
+${OBJECTDIR}/Communication.o: Communication.c  .generated_files/flags/default/6916e0ba2a35a7008f3e5c805f23ff1cf8f03266 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/Communication.o.d 
+	@${RM} ${OBJECTDIR}/Communication.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1 -g -DDEBUG  -gdwarf-2  -x c -D__$(MP_PROCESSOR_OPTION)__   -mdfp="${DFP_DIR}/xc8"  -Wl,--gc-sections -O1 -ffunction-sections -fdata-sections -fshort-enums -fno-common -funsigned-char -funsigned-bitfields -Wall -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD)  -gdwarf-3 -mconst-data-in-progmem -mconst-data-in-config-mapped-progmem     -MD -MP -MF "${OBJECTDIR}/Communication.o.d" -MT "${OBJECTDIR}/Communication.o.d" -MT ${OBJECTDIR}/Communication.o -o ${OBJECTDIR}/Communication.o Communication.c 
 	
 else
 ${OBJECTDIR}/main.o: main.c  .generated_files/flags/default/ae52d442abf147e054767a901fb1c28ffa98266 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
@@ -239,18 +233,6 @@ ${OBJECTDIR}/statemachine.o: statemachine.c  .generated_files/flags/default/6cc6
 	@${RM} ${OBJECTDIR}/statemachine.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -x c -D__$(MP_PROCESSOR_OPTION)__   -mdfp="${DFP_DIR}/xc8"  -Wl,--gc-sections -O1 -ffunction-sections -fdata-sections -fshort-enums -fno-common -funsigned-char -funsigned-bitfields -Wall -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD)  -gdwarf-3 -mconst-data-in-progmem -mconst-data-in-config-mapped-progmem     -MD -MP -MF "${OBJECTDIR}/statemachine.o.d" -MT "${OBJECTDIR}/statemachine.o.d" -MT ${OBJECTDIR}/statemachine.o -o ${OBJECTDIR}/statemachine.o statemachine.c 
 	
-${OBJECTDIR}/TopControllerHandler.o: TopControllerHandler.c  .generated_files/flags/default/d900e2494c3ce6ac991750c73aa7d1a2d4bce2ae .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/TopControllerHandler.o.d 
-	@${RM} ${OBJECTDIR}/TopControllerHandler.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -x c -D__$(MP_PROCESSOR_OPTION)__   -mdfp="${DFP_DIR}/xc8"  -Wl,--gc-sections -O1 -ffunction-sections -fdata-sections -fshort-enums -fno-common -funsigned-char -funsigned-bitfields -Wall -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD)  -gdwarf-3 -mconst-data-in-progmem -mconst-data-in-config-mapped-progmem     -MD -MP -MF "${OBJECTDIR}/TopControllerHandler.o.d" -MT "${OBJECTDIR}/TopControllerHandler.o.d" -MT ${OBJECTDIR}/TopControllerHandler.o -o ${OBJECTDIR}/TopControllerHandler.o TopControllerHandler.c 
-	
-${OBJECTDIR}/WeatherStationHandler.o: WeatherStationHandler.c  .generated_files/flags/default/5700cf8769043541911f0681f5374b0c7fd500f9 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/WeatherStationHandler.o.d 
-	@${RM} ${OBJECTDIR}/WeatherStationHandler.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -x c -D__$(MP_PROCESSOR_OPTION)__   -mdfp="${DFP_DIR}/xc8"  -Wl,--gc-sections -O1 -ffunction-sections -fdata-sections -fshort-enums -fno-common -funsigned-char -funsigned-bitfields -Wall -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD)  -gdwarf-3 -mconst-data-in-progmem -mconst-data-in-config-mapped-progmem     -MD -MP -MF "${OBJECTDIR}/WeatherStationHandler.o.d" -MT "${OBJECTDIR}/WeatherStationHandler.o.d" -MT ${OBJECTDIR}/WeatherStationHandler.o -o ${OBJECTDIR}/WeatherStationHandler.o WeatherStationHandler.c 
-	
 ${OBJECTDIR}/i2c.o: i2c.c  .generated_files/flags/default/f549c551f31023d4c0c51295cb41ef1f9fb8c6ac .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/i2c.o.d 
@@ -268,6 +250,12 @@ ${OBJECTDIR}/windows.o: windows.c  .generated_files/flags/default/b35978ac488f36
 	@${RM} ${OBJECTDIR}/windows.o.d 
 	@${RM} ${OBJECTDIR}/windows.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -x c -D__$(MP_PROCESSOR_OPTION)__   -mdfp="${DFP_DIR}/xc8"  -Wl,--gc-sections -O1 -ffunction-sections -fdata-sections -fshort-enums -fno-common -funsigned-char -funsigned-bitfields -Wall -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD)  -gdwarf-3 -mconst-data-in-progmem -mconst-data-in-config-mapped-progmem     -MD -MP -MF "${OBJECTDIR}/windows.o.d" -MT "${OBJECTDIR}/windows.o.d" -MT ${OBJECTDIR}/windows.o -o ${OBJECTDIR}/windows.o windows.c 
+	
+${OBJECTDIR}/Communication.o: Communication.c  .generated_files/flags/default/f2fdbf93bbaed278595e42a3ca4c350b23da57e9 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/Communication.o.d 
+	@${RM} ${OBJECTDIR}/Communication.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -x c -D__$(MP_PROCESSOR_OPTION)__   -mdfp="${DFP_DIR}/xc8"  -Wl,--gc-sections -O1 -ffunction-sections -fdata-sections -fshort-enums -fno-common -funsigned-char -funsigned-bitfields -Wall -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD)  -gdwarf-3 -mconst-data-in-progmem -mconst-data-in-config-mapped-progmem     -MD -MP -MF "${OBJECTDIR}/Communication.o.d" -MT "${OBJECTDIR}/Communication.o.d" -MT ${OBJECTDIR}/Communication.o -o ${OBJECTDIR}/Communication.o Communication.c 
 	
 endif
 

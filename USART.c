@@ -25,7 +25,7 @@ char USART0_readChar(){
             return USART0.RXDATAL; //return it
         }
     }
-    ws_data.WSStatus = WS_TIMEOUT_ERROR; //if timeout was reached set error and
+    weather_station.status = TIMEOUT_ERROR; //if timeout was reached set error and
 	return 0; //return 0
 }
 
@@ -53,7 +53,7 @@ char USART1_readChar(){
             return USART1.RXDATAL; //return it
         }
     }
-    sensor_data.TopStatus = TOP_TIMEOUT_ERROR; //if timeout was reached set error and
+    top_controller.status = TIMEOUT_ERROR; //if timeout was reached set error and
 	return 0; //return 0
 }
 

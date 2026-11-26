@@ -1,6 +1,5 @@
-build/default/production/TopControllerHandler.o.d \
- build/default/production/TopControllerHandler.o: TopControllerHandler.c \
- settings.h \
+build/default/debug/Communication.o.d build/default/debug/Communication.o: \
+ Communication.c settings.h \
  c:\program\ files\microchip\xc8\v4.00\avr\lib\gcc\avr\5.4.0\include\xc.h \
  c:\program\ files\microchip\xc8\v4.00\avr\lib\gcc\avr\5.4.0\include\cci.h \
  c:\program\ files\microchip\xc8\v4.00\avr\avr\include\avr\io.h \
@@ -24,9 +23,8 @@ build/default/production/TopControllerHandler.o.d \
  c:\program\ files\microchip\xc8\v4.00\avr\lib\gcc\avr\5.4.0\include\stdarg.h \
  c:\program\ files\microchip\xc8\v4.00\avr\avr\include\string.h \
  c:\program\ files\microchip\xc8\v4.00\avr\avr\include\stdlib.h CLK.h \
- GPIO.h timers.h i2c.h ADC.h USART.h WeatherStationHandler.h crc8.h \
- motors.h Joystick.h TopControllerHandler.h SSD1306.h windows.h \
- TopControllerHandlerVar.h
+ GPIO.h timers.h i2c.h ADC.h USART.h crc8.h motors.h Joystick.h SSD1306.h \
+ windows.h Communication.h CommunicationVar.h
 
 settings.h:
 
@@ -88,18 +86,16 @@ ADC.h:
 
 USART.h:
 
-WeatherStationHandler.h:
-
 crc8.h:
 
 motors.h:
 
 Joystick.h:
 
-TopControllerHandler.h:
-
 SSD1306.h:
 
 windows.h:
 
-TopControllerHandlerVar.h:
+Communication.h:
+
+CommunicationVar.h:
