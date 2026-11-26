@@ -32,6 +32,11 @@ void TCB1_ON(uint16_t period_us);
 void TCB1_OFF();
 bool TCB1_Checker();
 
+void TCB2_init(); 
+void TCB2_ON(uint16_t period_us);
+void TCB2_OFF();
+bool TCB2_Checker();
+
 void TCD0_init_stepper_PWM(uint32_t freq_hz, uint8_t duty_percent);
 
 void RTC_ON(uint16_t period_ms); //WS, TC, SM, LM timer for ms

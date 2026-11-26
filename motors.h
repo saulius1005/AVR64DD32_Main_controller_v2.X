@@ -22,6 +22,11 @@ typedef enum {
 } MotorType_t;  
 
 typedef enum {
+    FORWARD = 0,
+    BACKWARD
+} Direction_t;
+
+typedef enum {
     EN_SET = 0,
     EN_WAIT,
     EN_DONE            
@@ -37,11 +42,15 @@ typedef struct { //calback for both motors are the same
     void (*init)(void);
     void (*enable)(void);
     void (*disable)(void);
-    void (*set_dir)(void);    
+    void (*dir_forward)(void);  
+    void (*dir_backward)(void);
     void (*run)(void);
     void (*stop)(void);
     bool (*read_error)(void);
     bool (*read_position)(void); //only for stepper
+    void (*timer_set)(uint16_t);
+    bool (*time_checker) (void);
+    void (*time_stop) (void);
 } motor_callbacks_t;
 
 typedef struct {
@@ -49,9 +58,9 @@ typedef struct {
     MotorEnablingState_t enstate;
     ChangeDirState_t dirstate;
     
-    //PORT_t *port;
-    //uint8_t enable_pin;
-    //uint8_t direction_pin;
+    PORT_t *port;
+    uint8_t enable_pin;
+    uint8_t direction_pin;
 
     motor_callbacks_t callbacks;
 
@@ -68,8 +77,8 @@ extern both_motor_t linear;
 
 void Stepper_init();
 void Stepper_Enable();
-void Stepper_Disable();
-void Stepper_Set_Dir();
+void Stepper_Set_Dir_F();
+void Stepper_Set_Dir_B();
 void Stepper_Run();
 void Stepper_Stop();
 bool Read_Stepper_ALM();
@@ -77,8 +86,8 @@ bool Read_Stepper_PEND();
 
 void Linear_init();
 void Linear_Enable();
-void Linear_Disable();
-void Linear_Set_Dir();
+void Linear_Set_Dir_F();
+void Linear_Set_Dir_B();
 void Linear_Run();
 void Linear_Stop();
 bool Read_LinearMotor_EF();
