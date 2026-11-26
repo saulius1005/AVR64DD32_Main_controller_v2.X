@@ -16,300 +16,221 @@
 // -------------------------
 
 void Stepper_init() {
+    if(stepper.init)
+        return; //skip if initiated already
 	TCD0_init_stepper_PWM(25600, 50); // 51.2kHz, 50% duty for one motor shaft spin, so ~20s for gearbox
     PORTF.OUTSET = PIN1_bm; //keep disabled
+    stepper.init = true;
 }
 
-void Linear_init(){
-	TCA0_init_linear_PWM(20000, 95);
-	PORTD.OUTSET = PIN2_bm; //set output disabled for TLE9201SG
-};
+void Stepper_Enable(){
+    if(!stepper.init) //if stepper not initialized skip
+        return;
+    if(linear.enstate <= EN_WAIT) //if linear is in wait or set state (use rtc)
+        return;
+    if(stepper.enabled)
+        return;
+    switch(stepper.enstate){
+        case EN_SET:
+            PORTF.OUTCLR = PIN1_bm;
+            RTC_ON(stepper.wait_time);
+            stepper.enstate = EN_WAIT;
+        break;
+        case EN_WAIT:
+            if (!RTC_Checker()) {
+                RTC_OFF();
+                stepper.enstate = EN_DONE;
+            }
+        break;
+        case EN_DONE:           
+            stepper.enabled = true;
+            stepper.enstate = EN_SET;
+        break;
+    }
+}
+
+void Stepper_Disable(){
+    if(!stepper.enabled)
+        return;
+    if(linear.enstate <= EN_WAIT) //if linear is in wait ar set state (use rtc)
+        return;
+    switch(stepper.enstate){
+        case EN_SET:
+            PORTF.OUTSET = PIN1_bm;
+            RTC_ON(stepper.wait_time);
+            stepper.enstate = EN_WAIT;
+        break;
+        case EN_WAIT:
+            if (!RTC_Checker()) {
+                RTC_OFF();
+                stepper.enstate = EN_DONE;
+            }
+        break;
+        case EN_DONE:
+            stepper.enabled = false;
+            stepper.enstate = EN_SET;
+        break;
+    }    
+}
+
+void Stepper_Set_Dir(){
+    if(!stepper.enabled)// if disabled ignore further code
+        return;
+    if(stepper.run) //if running do not allow to change direction!
+        return;
+    if(stepper.dir_now == stepper.dir_last) //if same direction ignore further code
+        return;
+    switch(stepper.dirstate){
+        case DIR_SET:
+            if(stepper.dir_now)
+                PORTF.OUTSET = PIN3_bm; //forward               
+            else
+                PORTF.OUTCLR = PIN3_bm; //backward         
+            stepper.dirstate = DIR_WAIT;
+        break;
+        case DIR_WAIT:
+            stepper.dirstate = DIR_DONE;
+        break;
+        case DIR_DONE:
+            stepper.dir_last = stepper.dir_now;
+            stepper.dirstate = DIR_SET;
+        break;
+    }
+}
+
+void Stepper_Run() {
+    if(!stepper.enabled) //if disabled do not allow to run
+        return;
+    if(stepper.run) //if already run skip further code
+        return;
+    if(TCD0.STATUS & TCD_ENRDY_bm){ //if tcd is ready
+        TCD0.CTRLA |= TCD_ENABLE_bm; //enable signal generations
+        stepper.run = true; //set flag
+    }
+}
+
+void Stepper_Stop() {
+    if(!stepper.enabled) //if disabled do not allow to stop
+        return;
+    if(!stepper.run) //if already stopped skip further code
+        return;
+    if(TCD0.STATUS & TCD_ENRDY_bm){ //if tcd is ready
+        TCD0.CTRLA &= ~TCD_ENABLE_bm; //disable signal generations
+        stepper.run = false; //set flag
+    }
+}
 
 bool Read_Stepper_ALM(){ // true if driver has a error (overheat, stepepr stuck and so on)
 	return !(PORTF.IN & PIN4_bm);
-}
-
-bool Read_LinearMotor_EF(){ // false if driver has a error (overheat, linear motor stuck and so on)
-	return PORTD.IN & PIN4_bm;
 }
 
 bool Read_Stepper_PEND(){ // true if position reached
 	return !(PORTF.IN & PIN5_bm);
 }
 
-void Stepper_Run() {
-    while (!(TCD0.STATUS & TCD_ENRDY_bm));
-    TCD0.CTRLA |= TCD_ENABLE_bm;
-}
+void Linear_init(){
+    if(linear.init)
+        return;
+	TCA0_init_linear_PWM(20000, 95);
+	PORTD.OUTSET = PIN2_bm; //set output disabled for TLE9201SG
+    linear.init = true;
+};
 
-void Stepper_Stop() {
-    while (!(TCD0.STATUS & TCD_ENRDY_bm));
-    TCD0.CTRLA &= ~TCD_ENABLE_bm;
-}
-
-void Linear_Run() {
-    TCA0.SPLIT.CTRLB |= TCA_SPLIT_HCMP0EN_bm;
-}
-
-void Linear_Stop() {
-    TCA0.SPLIT.CTRLB &= ~TCA_SPLIT_HCMP0EN_bm;
-}
-
-
-void Motor_Actions(both_motor_t *motor) {
-
-    switch(motor->motor_init.action) {
-        case ENABLE:
-        case DISABLE:
-            if (motor->motor_init.enable_condition != (motor->motor_init.action == ENABLE ? DISABLED : ENABLED))//if condition is not the same as action if enabled != enabling if disabled != disabling
-                break;//if so condition and action is the same skip further code
-            switch(motor->state) {
-                case SET:
-                    if (motor->motor_init.action == ENABLE)
-                        motor->port->OUTCLR  = motor->enable_pin;
-                    else
-                        motor->port->OUTSET  = motor->enable_pin;
-
-                    RTC_ON(motor->motor_init.wait_time);//set timer for stepper 300 (according to driver datasheet 200 is minimum), for linear 1ms (longest time is wake up, but here no such thing, only using SPI interface)
-                    motor->state = WAIT;
-                break;
-
-                case WAIT:
-                    if (!RTC_Checker()) {
-                        RTC_OFF();
-                        motor->state = DONE;
-                    }
-                break;
-
-                case DONE:
-                    motor->motor_init.enable_condition = (motor->motor_init.action == ENABLE) ? ENABLED : DISABLED; //set new condition
-                    motor->state = SET; //reset for further actions
-                    motor->motor_init.init_status = true; //motor complete initialized and RTC timer now is free
-                break;
+void Linear_Enable(){
+    if(!linear.init) //if not initialized not allow further code
+        return;
+    if(stepper.enstate <= EN_WAIT) //if stepper is in set or wait state (use rtc)
+        return;    
+    if(linear.enabled) //if already enabled skip
+        return;
+    switch(linear.enstate){
+        case EN_SET:
+            PORTD.OUTCLR = PIN2_bm;
+            RTC_ON(linear.wait_time);
+            linear.enstate = EN_WAIT;
+        break;
+        case EN_WAIT:
+            if (!RTC_Checker()) {
+                RTC_OFF();
+                linear.enstate = EN_DONE;
             }
         break;
+        case EN_DONE:
+            linear.enabled = true;
+            linear.enstate = EN_SET;
+        break;
+    }    
+}
 
-        case RUN:
-        case STOP:
-            if (motor->motor_init.run_condition != (motor->motor_init.action == RUN ? STOPED : RUNING)) //identical to enabling/ disabling
-                break;
-
-            switch(motor->state) {
-                case SET:
-                    if (motor->motor_init.action == RUN)
-                        motor->callbacks.run();
-                    else
-                        motor->callbacks.stop();
-
-                    motor->state = WAIT;
-                break;
-
-                case WAIT:
-                    motor->state = DONE;
-                break;
-
-                case DONE:
-                    motor->motor_init.run_condition = (motor->motor_init.action == RUN) ? RUNING : STOPED;
-                    motor->state = SET;
-                break;
+void Linear_Disable(){
+    if(!linear.enabled)
+        return;
+    if(stepper.enstate <= EN_WAIT) //if stepper is in set or wait state (use rtc)
+        return;
+    switch(linear.enstate){
+        case EN_SET:
+            PORTD.OUTSET = PIN2_bm;
+            RTC_ON(linear.wait_time);
+            linear.enstate = EN_WAIT;
+        break;
+        case EN_WAIT:
+            if (!RTC_Checker()) {
+                RTC_OFF();
+                linear.enstate = EN_DONE;
             }
         break;
+        case EN_DONE:
+            linear.enabled = false;
+            linear.enstate = EN_SET;
+        break;
+    }    
+}
 
-        case SET_DIRECTION:
-            if (motor->direction != motor->lastDirection) { //only if new direction is not the same as old direction
-                switch(motor->state) {
-                    case SET:
-                        if(motor->direction == FORWARD) //if new dir is forward
-                            motor->port->OUTSET = motor->direction_pin; 
-                        else //backward
-                            motor->port->OUTCLR = motor->direction_pin;
-                        motor->lastDirection = motor->direction; //update old direction value
-                        motor->state = WAIT;
-                    break;
-
-                    case WAIT:
-                        motor->state = DONE;
-                    break;
-
-                    case DONE:
-                        motor->state = SET;
-                    break;
-                }
-            }
+void Linear_Set_Dir(){
+    if(!linear.enabled)// if disabled ignore further code
+        return;
+    if(linear.run) //if running do not allow to change direction!
+        return;
+    if(linear.dir_now == linear.dir_last) //if same direction ignore further code
+        return;
+    switch(linear.dirstate){
+        case DIR_SET:
+            if(linear.dir_now)
+                PORTD.OUTSET = PIN5_bm; //forward               
+            else
+                PORTD.OUTCLR = PIN5_bm; //backward         
+            linear.dirstate = DIR_WAIT;
+        break;
+        case DIR_WAIT:
+            linear.dirstate = DIR_DONE;
+        break;
+        case DIR_DONE:
+            linear.dir_last = linear.dir_now;
+            linear.dirstate = DIR_SET;
         break;
     }
 }
 
-/*
-void stepper_actions(){ //azimuth
-    switch(motor.stepper.action){
-        case ENABLING:
-        case DISABLING:
-            if (motor.stepper.condition != (motor.stepper.action == ENABLING ? DISABLED : ENABLED))//if condition is not the same as action if enabled != enabling if disabled != disabling
-                break; //if so condition and action is the same skip further code
-
-            switch(motor.stepper.state) {
-                case SET:
-                    if (motor.stepper.action == ENABLING)
-                        PORTF.OUTCLR = PIN1_bm;
-                    else
-                        PORTF.OUTSET = PIN1_bm;
-                    RTC_ON(300); //set timer to 300ms according to stepper driver datasheet
-                    motor.stepper.state = WAIT;
-                break;
-
-                case WAIT:
-                    if (!RTC_Checker()) { // after wait 
-                        RTC_OFF();
-                        motor.stepper.state = DONE;
-                    }
-                break;
-
-                case DONE:
-                    motor.stepper.state = SET; //reseting state for further actions
-                    motor.stepper.condition = (motor.stepper.action == ENABLING) ? ENABLED : DISABLED; //set motor condition
-                break;
-            }
-        break;
-        
-        case RUN:
-        case STOPING:
-            if (motor.stepper.condition != (motor.stepper.action == RUN ? STOPED : RUNING)) // same sasme as before
-                break;
-
-            switch(motor.stepper.state) {
-                case SET:
-                    if (TCD0.STATUS & TCD_ENRDY_bm) {
-                        if (motor.stepper.action == RUN)
-                            TCD0.CTRLA |= TCD_ENABLE_bm;
-                        else
-                            TCD0.CTRLA &= ~TCD_ENABLE_bm;
-
-                        motor.stepper.state = WAIT;
-                    }
-                break;
-                
-                case WAIT:
-                    motor.stepper.state = DONE;
-                break;
-
-                case DONE:
-                    motor.stepper.condition = (motor.stepper.action == RUN) ? RUNING : STOPED;                    
-                    motor.stepper.state = SET;
-                break;
-            }
-        break;   
-
-        case SET_DIRECTION:
-            if(motor.stepper.direction != motor.stepper.lastDirection){ //only if new direction is not the same as before
-                switch(motor.stepper.state){
-                    case SET:
-                        if(motor.stepper.direction == FORWARD){
-                            PORTF.OUTSET = PIN3_bm;
-                            motor.stepper.lastDirection = FORWARD;
-                        }
-                        else{
-                            PORTF.OUTCLR = PIN3_bm;
-                            motor.stepper.lastDirection = BACKWARD;
-                        }
-                        motor.stepper.state = WAIT;
-                    break;
-                    
-                    case WAIT: // for 3us not worth to use timer (after all state steps time delay will be enough)
-                        motor.stepper.state = DONE;
-                    break; 
-                    
-                    case DONE:
-                        motor.stepper.state = SET;
-                    break;   
-                }
-            }           
-        break;
-    } 
+void Linear_Run() {
+    if(!linear.enabled)
+        return;
+    if(linear.run)
+        return;
+    TCA0.SPLIT.CTRLB |= TCA_SPLIT_HCMP0EN_bm;
+    linear.run = true;
+    
 }
 
-void linear_actions(){ //elevation
-    switch(motor.linear.action){
-        case ENABLING:
-        case DISABLING:
-            if (motor.linear.condition != (motor.linear.action == ENABLING ? DISABLED : ENABLED))//if condition is not the same as action if enabled != enabling if disabled != disabling
-                break; //if so condition and action is the same skip further code
-
-            switch(motor.linear.state) {
-                case SET:
-                    if (motor.linear.action == ENABLING)
-                        PORTD.OUTCLR = PIN2_bm;
-                    else
-                        PORTD.OUTSET = PIN2_bm;
-                    RTC_ON(1); //for easier further optimization
-                    motor.linear.state = WAIT;
-                break;
-
-                case WAIT: //not waste timer for 5us
-                    if (!RTC_Checker()) {
-                        motor.linear.state = DONE;
-                        RTC_OFF();
-                    }
-                break;
-
-                case DONE:
-                    motor.linear.condition = (motor.linear.action == ENABLING) ? ENABLED : DISABLED; //set motor condition                    
-                    motor.linear.state = SET; //reseting state for further actions
-                break;
-            }
-        break;
-        
-        case RUN:
-        case STOPING:
-            if (motor.linear.condition != (motor.linear.action == RUN ? STOPED : RUNING)) // same sasme as before
-                break;
-
-            switch(motor.linear.state) {
-                case SET:
-                    if (motor.linear.action == RUN)
-                        TCA0.SPLIT.CTRLB |= TCA_SPLIT_HCMP0EN_bm;
-                    else
-                        TCA0.SPLIT.CTRLB &= ~TCA_SPLIT_HCMP0EN_bm;
-
-                    motor.linear.state = WAIT;
-                break;
-                
-                case WAIT: //not used but for compilator to be happy
-                    motor.linear.state = DONE;
-                break;
-
-                case DONE:
-                    motor.linear.state = SET;
-                    motor.linear.condition = (motor.linear.action == RUN) ? RUNING : STOPED;
-                break;
-            }
-        break;   
-
-        case SET_DIRECTION:
-            if(motor.linear.direction != motor.linear.lastDirection){ //only if new direction is not the same as before
-                switch(motor.linear.state){
-                    case SET:
-                        if(motor.linear.direction == FORWARD){
-                            PORTD.OUTSET = PIN5_bm;
-                            motor.linear.lastDirection = FORWARD; //up in this case
-                        }
-                        else{
-                            PORTD.OUTCLR = PIN5_bm;
-                            motor.linear.lastDirection = BACKWARD; //down in this case
-                        }
-                        motor.linear.state = WAIT;
-                    break;
-                    
-                    case WAIT:
-                            motor.linear.state = DONE;
-                    break; 
-                    
-                    case DONE:
-                        motor.linear.state = SET;
-                    break;   
-                }
-            }           
-        break;
-    } 
+void Linear_Stop() {
+    if(!linear.enabled)
+        return;
+    if(!linear.run) //skip if stoped
+        return;
+    TCA0.SPLIT.CTRLB &= ~TCA_SPLIT_HCMP0EN_bm;
+    linear.run = false;
 }
- * */
+
+bool Read_LinearMotor_EF(){ // false if driver has a error (overheat, linear motor stuck and so on)
+	return PORTD.IN & PIN4_bm;
+}
+

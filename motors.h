@@ -22,85 +22,67 @@ typedef enum {
 } MotorType_t;  
 
 typedef enum {
-    SET = 0,
-    WAIT,
-    DONE            
-}MotorState_t;
+    EN_SET = 0,
+    EN_WAIT,
+    EN_DONE            
+}MotorEnablingState_t;
 
 typedef enum {
-    FORWARD = 0,
-    BACKWARD
-}MotorDirection_t;
-
-typedef enum {
-    DISABLE = 0,
-    ENABLE,
-    STOP,
-    RUN,
-    SET_DIRECTION
-}MotorAction_t;
-
-typedef enum {
-    DISABLED,
-    ENABLED
-} EnableCondition_t;
-
-typedef enum {
-    STOPED,
-    RUNING
-} RunCondition_t;
-    
-typedef struct {
-    MotorState_t state;
-    MotorAction_t action;
-    EnableCondition_t enable_condition;
-    RunCondition_t run_condition;
-    MotorDirection_t direction;
-    MotorDirection_t lastDirection;
-    uint16_t wait_time;
-    bool init_status;
-    
-} motor_init_t;
+    DIR_SET = 0,
+    DIR_WAIT,
+    DIR_DONE            
+}ChangeDirState_t;
 
 typedef struct { //calback for both motors are the same
     void (*init)(void);
+    void (*enable)(void);
+    void (*disable)(void);
+    void (*set_dir)(void);    
     void (*run)(void);
     void (*stop)(void);
-
     bool (*read_error)(void);
     bool (*read_position)(void); //only for stepper
 } motor_callbacks_t;
 
 typedef struct {
-    motor_init_t motor_init;
+    uint16_t wait_time;    
+    MotorEnablingState_t enstate;
+    ChangeDirState_t dirstate;
     
-    PORT_t *port;
-    uint8_t enable_pin;
-    uint8_t direction_pin;
+    //PORT_t *port;
+    //uint8_t enable_pin;
+    //uint8_t direction_pin;
 
     motor_callbacks_t callbacks;
-    MotorState_t state;
 
-    MotorDirection_t direction;
-    MotorDirection_t lastDirection;
-
+    bool init;
+    bool enabled;  
+    bool run;   
+    bool dir_now;
+    bool dir_last;
+    
 } both_motor_t;
 
 extern both_motor_t stepper;
 extern both_motor_t linear;
 
 void Stepper_init();
+void Stepper_Enable();
+void Stepper_Disable();
+void Stepper_Set_Dir();
 void Stepper_Run();
 void Stepper_Stop();
 bool Read_Stepper_ALM();
 bool Read_Stepper_PEND();
 
 void Linear_init();
+void Linear_Enable();
+void Linear_Disable();
+void Linear_Set_Dir();
 void Linear_Run();
 void Linear_Stop();
 bool Read_LinearMotor_EF();
 
-void Motor_Actions(both_motor_t *motor); //stepper and linear common control function: enabling, disabling, run, stop, change directions.
 
 #ifdef	__cplusplus
 }
