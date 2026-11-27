@@ -5,14 +5,17 @@
         <group>
             <file>file:/C:/Users/Saulius/MPLABXProjects/AVR64DD32_Main_controller_v2.X/motors.c</file>
             <file>file:/C:/Users/Saulius/MPLABXProjects/AVR64DD32_Main_controller_v2.X/motorsVar.h</file>
+            <file>file:/C:/Users/Saulius/MPLABXProjects/AVR64DD32_Main_controller_v2.X/tracker.h</file>
             <file>file:/C:/Users/Saulius/MPLABXProjects/AVR64DD32_Main_controller_v2.X/Communication.c</file>
             <file>file:/C:/Users/Saulius/MPLABXProjects/AVR64DD32_Main_controller_v2.X/Communication.h</file>
             <file>file:/C:/Users/Saulius/MPLABXProjects/AVR64DD32_Main_controller_v2.X/main.c</file>
+            <file>file:/C:/Users/Saulius/MPLABXProjects/AVR64DD32_Main_controller_v2.X/tracker.c</file>
             <file>file:/C:/Users/Saulius/MPLABXProjects/AVR64DD32_Main_controller_v2.X/timers.h</file>
             <file>file:/C:/Users/Saulius/MPLABXProjects/AVR64DD32_Main_controller_v2.X/USART.c</file>
             <file>file:/C:/Users/Saulius/MPLABXProjects/AVR64DD32_Main_controller_v2.X/settings.h</file>
             <file>file:/C:/Users/Saulius/MPLABXProjects/AVR64DD32_Main_controller_v2.X/timersVar.h</file>
             <file>file:/C:/Users/Saulius/MPLABXProjects/AVR64DD32_Main_controller_v2.X/windows.c</file>
+            <file>file:/C:/Users/Saulius/MPLABXProjects/AVR64DD32_Main_controller_v2.X/trackerVar.h</file>
             <file>file:/C:/Users/Saulius/MPLABXProjects/AVR64DD32_Main_controller_v2.X/motors.h</file>
             <file>file:/C:/Users/Saulius/MPLABXProjects/AVR64DD32_Main_controller_v2.X/CommunicationVar.h</file>
             <file>file:/C:/Users/Saulius/MPLABXProjects/AVR64DD32_Main_controller_v2.X/statemachine.c</file>

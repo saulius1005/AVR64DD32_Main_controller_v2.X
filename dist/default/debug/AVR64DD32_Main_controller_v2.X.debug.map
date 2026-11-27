@@ -232,22 +232,30 @@ Discarded input sections
  .text          0x0000000000000000        0x0 build/default/debug/tracker.o
  .data          0x0000000000000000        0x0 build/default/debug/tracker.o
  .bss           0x0000000000000000        0x0 build/default/debug/tracker.o
- .text.too_low  0x0000000000000000       0x1c build/default/debug/tracker.o
- .text.too_high
+ .text.below_tolerance
                 0x0000000000000000       0x1c build/default/debug/tracker.o
- .text.wake_up  0x0000000000000000       0x16 build/default/debug/tracker.o
+ .text.above_tolerance
+                0x0000000000000000       0x1c build/default/debug/tracker.o
+ .text.within_tolerance
+                0x0000000000000000       0x16 build/default/debug/tracker.o
+ .text.below_wakeup_threshold
+                0x0000000000000000       0x1c build/default/debug/tracker.o
+ .text.above_wakeup_threshold
+                0x0000000000000000       0x1c build/default/debug/tracker.o
+ .text.should_wake_up
+                0x0000000000000000       0x16 build/default/debug/tracker.o
  .text.auto_tracker
-                0x0000000000000000       0x2e build/default/debug/tracker.o
+                0x0000000000000000       0xb8 build/default/debug/tracker.o
  .data.tracker  0x0000000000000000        0x9 build/default/debug/tracker.o
- .debug_info    0x0000000000000000     0x7ba3 build/default/debug/tracker.o
+ .debug_info    0x0000000000000000     0x7c78 build/default/debug/tracker.o
  .debug_abbrev  0x0000000000000000      0x160 build/default/debug/tracker.o
  .debug_aranges
-                0x0000000000000000       0x38 build/default/debug/tracker.o
- .debug_ranges  0x0000000000000000       0x28 build/default/debug/tracker.o
- .debug_line    0x0000000000000000      0x1bb build/default/debug/tracker.o
+                0x0000000000000000       0x50 build/default/debug/tracker.o
+ .debug_ranges  0x0000000000000000       0x40 build/default/debug/tracker.o
+ .debug_line    0x0000000000000000      0x279 build/default/debug/tracker.o
  .debug_str     0x0000000000000000        0x0 build/default/debug/tracker.o
  .comment       0x0000000000000000       0x30 build/default/debug/tracker.o
- .debug_frame   0x0000000000000000       0x60 build/default/debug/tracker.o
+ .debug_frame   0x0000000000000000       0x84 build/default/debug/tracker.o
  .data          0x0000000000000000        0x0 c:/program files/microchip/xc8/v4.00/avr/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega2/memx-const/mapped\libm.a(addsf3.o)
  .bss           0x0000000000000000        0x0 c:/program files/microchip/xc8/v4.00/avr/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega2/memx-const/mapped\libm.a(addsf3.o)
  .stack.descriptors

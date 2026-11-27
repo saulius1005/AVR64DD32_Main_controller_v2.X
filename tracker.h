@@ -12,14 +12,16 @@
 extern "C" {
 #endif
     
-#define NEAR_ERROR 20 // 0.20 degree near to target is "good enough"
-#define BACKLASH 100 // 1.00 degree. Change angle if current angle is above this
+#define POSITION_TOLERANCE 20 // 0.20 degree near to target is "good enough"
+#define WAKEUP_THRESHOLD 100 // 1.00 degree. Change angle if current angle is above this
 
-typedef enum {
+typedef enum {    
     T_SLEEP = 0,
     T_ENABLE,
     T_DIR_PREP,
-    T_SPIN    
+    T_SPIN,
+    T_STOP,
+    T_DISABLE
 }tracking_states_t;    
     
     
