@@ -30,10 +30,8 @@ typedef enum {
 } device_status_t; 
 
 typedef struct {
-	int8_t EL; //0-90
-	int16_t HR_EL; // 000-900
+	int16_t EL; // 000-900
 	uint16_t AZ; //0-359
-	uint16_t HR_AZ; // 000-35999
 	uint16_t PVU; //30000max (300.00V)
 	uint16_t PVI; //exmpl 150- 1.5A max is 1250 or 12.5A (need to check TopController firmware) tmcs1100A4 range is 0.125-12.5A
 	bool ElMin;

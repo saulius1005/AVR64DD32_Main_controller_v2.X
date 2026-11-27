@@ -24,7 +24,7 @@ build/default/debug/USART.o.d build/default/debug/USART.o: USART.c \
  c:\program\ files\microchip\xc8\v4.00\avr\avr\include\string.h \
  c:\program\ files\microchip\xc8\v4.00\avr\avr\include\stdlib.h CLK.h \
  GPIO.h timers.h i2c.h ADC.h USART.h crc8.h motors.h Joystick.h SSD1306.h \
- windows.h Communication.h
+ windows.h Communication.h tracker.h
 
 settings.h:
 
@@ -97,3 +97,5 @@ SSD1306.h:
 windows.h:
 
 Communication.h:
+
+tracker.h:

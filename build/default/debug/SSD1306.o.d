@@ -24,7 +24,7 @@ build/default/debug/SSD1306.o.d build/default/debug/SSD1306.o: SSD1306.c \
  c:\program\ files\microchip\xc8\v4.00\avr\avr\include\string.h \
  c:\program\ files\microchip\xc8\v4.00\avr\avr\include\stdlib.h CLK.h \
  GPIO.h timers.h i2c.h ADC.h USART.h crc8.h motors.h Joystick.h SSD1306.h \
- windows.h Communication.h SSD1306Var.h
+ windows.h Communication.h tracker.h SSD1306Var.h
 
 settings.h:
 
@@ -97,5 +97,7 @@ SSD1306.h:
 windows.h:
 
 Communication.h:
+
+tracker.h:
 
 SSD1306Var.h:

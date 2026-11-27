@@ -32,6 +32,7 @@ extern "C" {
 #include "SSD1306.h"
 #include "windows.h"
 #include "Communication.h"
+#include "tracker.h"
 
 
 

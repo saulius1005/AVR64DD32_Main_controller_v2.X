@@ -44,8 +44,8 @@ void TopDataParser(char *buf){
     uint8_t i = 0;
     uint8_t endSwitches = 0;
     
-    sensor_data.HR_EL = fast_atoi_hex(&buf[i], 4); i += 4; //0-3
-    sensor_data.HR_AZ   = fast_atoi_hex(&buf[i], 4); i += 4; //4-7
+    sensor_data.EL = fast_atoi_hex(&buf[i], 4); i += 4; //0-3
+    sensor_data.AZ   = fast_atoi_hex(&buf[i], 4); i += 4; //4-7
     sensor_data.PVU         = fast_atoi_hex(&buf[i], 3); i += 3; //8-10
     sensor_data.PVI         = fast_atoi_hex(&buf[i], 3); i += 3; //11-13
     endSwitches             = fast_atoi_hex(&buf[i], 1);         //14

@@ -24,7 +24,7 @@ build/default/debug/Joystick.o.d build/default/debug/Joystick.o: \
  c:\program\ files\microchip\xc8\v4.00\avr\avr\include\string.h \
  c:\program\ files\microchip\xc8\v4.00\avr\avr\include\stdlib.h CLK.h \
  GPIO.h timers.h i2c.h ADC.h USART.h crc8.h motors.h Joystick.h SSD1306.h \
- windows.h Communication.h JoystickVar.h
+ windows.h Communication.h tracker.h JoystickVar.h
 
 settings.h:
 
@@ -97,5 +97,7 @@ SSD1306.h:
 windows.h:
 
 Communication.h:
+
+tracker.h:
 
 JoystickVar.h:
